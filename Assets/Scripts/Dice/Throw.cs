@@ -10,7 +10,7 @@ public class Throw : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            ThrowObject();
+            //ThrowObject();
         }
 
         if (die != null && die.IsImmobile)

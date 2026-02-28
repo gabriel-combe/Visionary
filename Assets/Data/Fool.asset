@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04a7120080da2e64b9a8c9c5ffc33ba1, type: 3}
+  m_Name: Fool
+  m_EditorClassIdentifier: Assembly-CSharp::SO_DialogNPC
+  Name: Fool
+  Portrait: {fileID: 21300000, guid: a6b7122dc2e67e54fa68108f416c30df, type: 3}
+  DialogPaths:
+  - entries:
+    - playerText: 
+      npcText: Hi, what brings you here today?
+    - playerText: entry 1
+      npcText: answer 1
+    - playerText: entry 2
+      npcText: answer 2
+    - playerText: entry 3
+      npcText: answer 3
+    - playerText: entry 4
+      npcText: answer 4
+    - playerText: entry 5
+      npcText: answer 5
+  - entries:
+    - playerText: 
+      npcText: default
