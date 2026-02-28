@@ -7,6 +7,11 @@ public class throwableManager : MonoBehaviour
 {
     public GameObject ossiclePrefab;
     public GameObject dicePrefab;
+    public Transform mainCamera;
+
+    public Vector3 singleDiceScreenSpacePosition = new Vector3(0.2f,0.0f,0.5f);
+    public float singleDiceScale = 1e-1f;
+
     public float height = 1.0f;
     public int numberOfOssiclesToThrow = 8;
     public float circleRadius = 0.5f;
@@ -75,6 +80,44 @@ public class throwableManager : MonoBehaviour
         Debug.Log(upDog);
     }
 
+    IEnumerator DiceAnim()
+    {
+        GameObject dice = Instantiate(dicePrefab, mainCamera.position + mainCamera.right*singleDiceScreenSpacePosition.x + mainCamera.up*singleDiceScreenSpacePosition.y + mainCamera.forward*singleDiceScreenSpacePosition.z, Quaternion.identity); 
+        dice.transform.localScale = new Vector3(singleDiceScale,singleDiceScale,singleDiceScale);
+
+        int randomSide = UnityEngine.Random.Range(1,20);
+
+        Transform side = dice.transform.GetChild(randomSide-1);
+
+        Vector3 direction = Vector3.Normalize(dice.transform.position-side.position);
+        Vector3 targetDirection = Vector3.Normalize(dice.transform.position-mainCamera.position);
+
+        dice.transform.Rotate(Vector3.Cross(direction,targetDirection),Mathf.Acos(Vector3.Dot(direction,targetDirection))*Mathf.Rad2Deg);
+        dice.transform.Rotate(targetDirection,UnityEngine.Random.Range(0.0f,360.0f),Space.World);
+
+        Quaternion finalRot = dice.transform.rotation;
+        Vector3 spinAxis = UnityEngine.Random.onUnitSphere;
+        spinAxis = Vector3.Normalize(Vector3.Cross(spinAxis,targetDirection));
+
+        for(int i = 0; i < 100; i++)
+        {
+            dice.transform.rotation = finalRot;
+            dice.transform.Rotate(spinAxis,Mathf.Pow(Mathf.InverseLerp(99,0,i),2.0f)*1000.0f,Space.World);
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        for(int i = 0; i < 100; i++)
+        {
+            float scaleAnim = singleDiceScale*(1.0f+0.2f*Mathf.Exp(-Mathf.Pow(4.0f*(Mathf.Pow(Mathf.InverseLerp(99,0,i),1.5f)-0.5f),2.0f)));
+            dice.transform.localScale = new Vector3(scaleAnim,scaleAnim,scaleAnim);
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        yield return new WaitForSeconds(0.25f);
+        diceThrowFinished?.Invoke(randomSide);
+        Destroy(dice);
+    }
+
     [ContextMenu("Throw Ossicles")] 
     public void ThrowOssicles()
     {
@@ -103,6 +146,6 @@ public class throwableManager : MonoBehaviour
     [ContextMenu("Throw Dice")] 
     public void ThrowDice()
     {
-        //TODO
+        StartCoroutine(DiceAnim());
     }
 }
