@@ -411,15 +411,19 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fbf855bd2f1c17b759eb31ee34d6ec6d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ossiclesManager
+  m_EditorClassIdentifier: Assembly-CSharp::throwableManager
   ossiclePrefab: {fileID: 59517578097769881, guid: b075d95eb1da2e48ab44517fac043283, type: 3}
-  dicePrefab: {fileID: 0}
+  dicePrefab: {fileID: 7184959685950017438, guid: b6636b68214c4db48916d6764a34275c, type: 3}
+  mainCamera: {fileID: 742910358}
+  singleDiceScreenSpacePosition: {x: 0.2, y: 0, z: 0.5}
+  singleDiceScale: 0.1
   height: 1
   numberOfOssiclesToThrow: 8
   circleRadius: 0.5
   randomVelocityMagnitude: 0.5
   randomAngularMomentumMagnitude: 6
   epsilon: 0.01
+  timeout_period: 10
   lowBound: {x: -1, y: 0, z: -1}
   highBound: {x: 1, y: 2, z: 1}
   throwableInstances: []
