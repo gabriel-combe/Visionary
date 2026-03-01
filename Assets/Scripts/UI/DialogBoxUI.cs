@@ -94,9 +94,11 @@ public class DialogBoxUI : MonoBehaviour
             if (c == '$')
             {
                 // Now wait for a click to proceed
+                Debug.Log("Waiting for click to proceed to next segment...");
                 _awaitingClick = true;
                 _clickReceived = false;
                 yield return new WaitUntil(() => _clickReceived);
+                Debug.Log("Click received, proceeding to next segment");
                 _awaitingClick = false;
                 _clickReceived = false;
                 dialogText.text = ""; // Clear text for next segment
@@ -179,7 +181,7 @@ public class DialogBoxUI : MonoBehaviour
             {
                 text.text = options[i].Item1.playerText;
                 text.text = options[i].Item1.playerText.Replace("/", "<i>");
-                int place = options[i].Item1.playerText.LastIndexOf("<i>");
+                int place = text.text.LastIndexOf("<i>");
 
                 if (place >= 0)
                     text.text = text.text.Remove(place).Insert(place, "</i>");
@@ -222,7 +224,13 @@ public class DialogBoxUI : MonoBehaviour
         }
 
         isTyping = false;
+
         dialogText.text = currentFullText;
+        dialogText.text = currentFullText.Replace("/", "<i>");
+        int place = dialogText.text.LastIndexOf("<i>");
+
+        if (place >= 0)
+            dialogText.text = dialogText.text.Remove(place).Insert(place, "</i>");
     }
 
     /// <summary>

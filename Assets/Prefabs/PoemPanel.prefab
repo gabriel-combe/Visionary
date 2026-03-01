@@ -119,14 +119,12 @@ MonoBehaviour:
   poemText: {fileID: 4169549233872933419}
   poemPanel: {fileID: 1816610143625341991}
   typewriterSpeed: 0.05
-  poemA: Lorem ipsum dolor sit #amet# consectetur adipiscing elit. Consectetur #adipiscing#
-    elit quisque faucibus ex sapien vitae. Ex #sapien vitae pellentesque# sem placerat
-    in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis
-    tempus leo eu aenean.
-  poemB: ' #Lorem ipsum# dolor sit amet consectetur adipiscing elit. Consectetur
-    #adipiscing elit quisque faucibus ex sapien# vitae. Ex sapien vitae pellentesque
-    sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus
-    duis convallis tempus leo eu aenean.'
+  poemA: "#Love# seeketh not itself to please, $Nor for itself hath any care; $But
+    for another gives its ease, $And builds a Heaven in #Hell#\u2019s despair."
+  poemB: Outside the feast the streets grow thin, $Empty bowls and hollow song. $The
+    #fool# who laughs before the #throne# $Knows hunger does not laugh for long.
+  poemC: "Three paths wait beneath the stars: $A crown, a blade, a burning gate.
+    $A #heart# may follow love tonight\u2014 $Or #kingdoms# crumble under fate."
 --- !u!1 &2108450434503827962
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,8 +191,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: cdf6122ce2e00914f9ebbfb6ffd0a64c, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -235,10 +233,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1865282606203570932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 20, y: -20}
-  m_SizeDelta: {x: -40, y: 50}
+  m_AnchoredPosition: {x: 65, y: -65}
+  m_SizeDelta: {x: -130, y: -130}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &6087404737222052170
 CanvasRenderer:
@@ -271,7 +269,7 @@ MonoBehaviour:
   m_text: Poems
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f239e167d7592844899cc6ef5fe7b2c7, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -8010186979296710789, guid: f239e167d7592844899cc6ef5fe7b2c7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -302,8 +300,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -337,7 +335,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8325999243008416579

@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: TheChariotCard
   m_EditorClassIdentifier: Assembly-CSharp::Card
   name: The Chariot
-  text: 
+  text: "The card hums with steady, unyielding energy, the wheels of destiny ready
+    to roll forward.  $Its power is controlled, disciplined, yet charged with hidden
+    desire.  $You sense the Garde\u2019s heart within it\u2014loyal, steadfast, and
+    bound by duty, yet driven by a love he cannot openly show.  $His eyes, fixed
+    on the princess beneath the balcony, betray the truth of his devotion.  $The
+    Chariot carries him forward, and now, through you, his secret may finally find
+    its course."
   sprite: {fileID: 21300000, guid: 38ff51468812948ab925e10c160528ff, type: 3}

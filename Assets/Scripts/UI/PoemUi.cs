@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class PoemUi : MonoBehaviour
 {
@@ -11,6 +11,7 @@ public class PoemUi : MonoBehaviour
     [SerializeField] private float typewriterSpeed = 0.05f;
     [SerializeField] private string poemA;
     [SerializeField] private string poemB;
+    [SerializeField] private string poemC;
 
     private struct substrpoem
     {
@@ -20,9 +21,11 @@ public class PoemUi : MonoBehaviour
 
     private List<substrpoem> secPoemA = new List<substrpoem>();
     private List<substrpoem> secPoemB = new List<substrpoem>();
+    private List<substrpoem> secPoemC = new List<substrpoem>();
 
     int poemAGibberishCount;
     int poemBGibberishCount;
+    int poemCGibberishCount;
 
     // Interaction control
     private bool _awaitingClick = false;
@@ -33,7 +36,7 @@ public class PoemUi : MonoBehaviour
     private string currentFullText = "";
 
     // Gibberish text characters list
-    string gibberishChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?";
+    string gibberishChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#%^&*()_+-=[]{}|;':\",./<>?!@#%^&*()_+-=[]{}|;':\",./<>?!@#%^&*()_+-=[]{}|;':\",./<>?!@#%^&*()_+-=[]{}|;':\",./<>?";
 
     void Awake()
     {    
@@ -43,6 +46,7 @@ public class PoemUi : MonoBehaviour
         }
         poemAGibberishCount=0;
         poemBGibberishCount=0;
+        poemCGibberishCount=0;
         string[] splitA = poemA.Split("#");
         for(int i = 0;i < splitA.Length; i++)
         {
@@ -76,6 +80,23 @@ public class PoemUi : MonoBehaviour
             q.text = splitB[i];
             secPoemB.Add(q);
         }
+
+        string[] splitC = poemC.Split("#");
+        for (int i = 0; i < splitC.Length; i++)
+        {
+            substrpoem q;
+            if (i % 2 == 1)
+            {
+                q.can_be_gibberish = true;
+                poemCGibberishCount++;
+            }
+            else
+            {
+                q.can_be_gibberish = false;
+            }
+            q.text = splitC[i];
+            secPoemC.Add(q);
+        }
     }
     
     public void ShowPoem()
@@ -106,6 +127,12 @@ public class PoemUi : MonoBehaviour
 
         foreach (char c in text)
         {
+            if (c == '$')
+            {
+                poemText.text += '\n';
+                continue; // Skip adding this character to the text
+            }
+
             poemText.text += c;
             yield return new WaitForSeconds(typewriterSpeed);
         }
@@ -123,7 +150,7 @@ public class PoemUi : MonoBehaviour
         }
 
         isTyping = false;
-        poemText.text = currentFullText;
+        poemText.text = currentFullText.Replace('$', '\n');
     }
 
     void fisherYates(bool[] array)
@@ -213,7 +240,7 @@ public class PoemUi : MonoBehaviour
         }
         fisherYates(boolArray);
 
-        string text = "";
+        string text = "\n";
         int j = 0;
         for(int i = 0; i < secPoemB.Count; i++)
         {
@@ -239,6 +266,57 @@ public class PoemUi : MonoBehaviour
         }
         Debug.Log(text);
         currentFullText=poemText.text+text;
+
+        poemPanel.SetActive(true);
+        if (typewriterCoroutine != null)
+            StopCoroutine(typewriterCoroutine);
+
+        typewriterCoroutine = StartCoroutine(TypewriterEffect(text));
+
+        yield return new WaitUntil(() => !isTyping);
+
+        _awaitingClick = true;
+        _clickReceived = false;
+        yield return new WaitUntil(() => _clickReceived);
+        _awaitingClick = false;
+        _clickReceived = false;
+    }
+
+    public IEnumerator ShowPoemCAndWaitForClick(int amountOfWordsToShow)
+    {
+        bool[] boolArray = new bool[poemCGibberishCount];
+        for (int i = 0; i < Mathf.Min(amountOfWordsToShow, poemCGibberishCount); i++)
+        {
+            boolArray[i] = true;
+        }
+        fisherYates(boolArray);
+
+        string text = "\n";
+        int j = 0;
+        for (int i = 0; i < secPoemC.Count; i++)
+        {
+            if (secPoemC[i].can_be_gibberish)
+            {
+                if (!boolArray[j])
+                {
+                    for (int k = 0; k < secPoemC[i].text.Length; k++)
+                    {
+                        text += gibberishChars[Random.Range(0, gibberishChars.Length)].ToString();
+                    }
+                }
+                else
+                {
+                    text += secPoemC[i].text;
+                }
+                j++;
+            }
+            else
+            {
+                text += secPoemC[i].text;
+            }
+        }
+        Debug.Log(text);
+        currentFullText = poemText.text + text;
 
         poemPanel.SetActive(true);
         if (typewriterCoroutine != null)

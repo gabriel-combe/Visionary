@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Servant
   m_EditorClassIdentifier: Assembly-CSharp::SO_DialogNPC
   _name: Servant
-  _portrait: {fileID: 0}
+  _portrait: {fileID: 21300000, guid: c05b5a70842678c44b74e459333519d9, type: 3}
   _cards: []
   _dialogPaths:
   - entries:

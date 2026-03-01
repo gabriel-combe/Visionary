@@ -164,7 +164,7 @@ MonoBehaviour:
   singleDiceScreenSpacePosition: {x: 0.2, y: 0, z: 0.5}
   singleDiceScale: 0.1
   height: 1
-  numberOfOssiclesToThrow: 8
+  numberOfOssiclesToThrow: 3
   circleRadius: 0.4
   randomVelocityMagnitude: 0.8
   randomAngularMomentumMagnitude: 25

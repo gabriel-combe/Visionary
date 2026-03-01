@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using static SO_DialogNPC;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
+using System;
 
 /// <summary>
 /// Manages all UI panels and navigation.
@@ -32,6 +32,7 @@ public class UIManager : SingletonMono<UIManager>
     [Header("Manager")]
     [SerializeField] private throwableManager throwManager;
     [SerializeField] private PoemUi poemManager;
+    [SerializeField] private CardDeck cardDeckManager;
 
     [Header("Dialog Data")]
     [SerializeField] private NPCData _handOfTheKingData;
@@ -40,12 +41,22 @@ public class UIManager : SingletonMono<UIManager>
     [SerializeField] private Card _wheelOfFortune;
     [SerializeField] private Card _wheelOfFortuneReversed;
 
+    public class CardAssociation
+    {
+        public Card card1;
+        public Card card2;
+        public Card cardEnding;
+    }
+    [Header("Card Associations")]
+    [SerializeField] private List<CardAssociation> _cardAssociations;
+
     // logic state
     private bool _isInEncounter = false;
     private int _diceResult = -1;
     private int _ossicleResult = -1;
     private int _currentEnvironmentIndex = 0;
     private bool _ossicleView = true;
+    private bool _enableInteraction = false;
     private int _phase = 1; // 1 = first throw, 2 = second throw, 3 = ending
     private List<NPCData> _remainingdMainNPCEncounter;
     private Card _card1 = null;
@@ -54,6 +65,7 @@ public class UIManager : SingletonMono<UIManager>
     // UI state
     private Tween _cameraTweenMove;
     private Tween _cameraTweenRotate;
+    public Action<int> onEnvironmentChange;
 
     // Interaction control
     private bool _awaitingClick = false;
@@ -87,6 +99,7 @@ public class UIManager : SingletonMono<UIManager>
     public void OffsetEnvironmentIndex(int offset)
     {
         _currentEnvironmentIndex += offset;
+        onEnvironmentChange?.Invoke(_currentEnvironmentIndex);
         Debug.Log($"Environment index changed to {_currentEnvironmentIndex}");
         UpdateCamera();
         UpdateArrowVisibility();
@@ -242,6 +255,7 @@ public class UIManager : SingletonMono<UIManager>
         _card1 = null;
         _card2 = null;
         _diceResult = -1;
+        _ossicleResult = -1;
         _isInEncounter = false;
         _phase = 1;
         ResetEncounter();
@@ -250,6 +264,7 @@ public class UIManager : SingletonMono<UIManager>
     public void ResetEncounter()
     {
         _diceResult = -1;
+        _ossicleResult = -1;
         _isInEncounter = false;
 
         foreach(var npc in FindObjectsByType<NPCData>(FindObjectsSortMode.None))
@@ -270,8 +285,8 @@ public class UIManager : SingletonMono<UIManager>
         _cameraTweenMove?.Kill();
         _cameraTweenRotate?.Kill();
 
-        _cameraTweenMove = _mainCamera.transform.DOMove(toggle ? new Vector3(0, 0, 1) : new Vector3(0, 0, -1), 0.5f).SetEase(Ease.InOutSine);
-        _cameraTweenRotate = _mainCamera.transform.DORotate(toggle ? new Vector3(60, 0, 0) : Vector3.zero, 0.5f).SetEase(Ease.InOutSine);
+        _cameraTweenMove = _mainCamera.transform.DOMove(toggle ? new Vector3(0, 0, 1) : new Vector3(-_halfwidth, _halfheight, -1), 1f).SetEase(Ease.InOutSine);
+        _cameraTweenRotate = _mainCamera.transform.DORotate(toggle ? new Vector3(60, 0, 0) : Vector3.zero, 1f).SetEase(Ease.InOutSine);
 
         yield return _cameraTweenMove.WaitForCompletion();
         yield return _cameraTweenRotate.WaitForCompletion();
@@ -300,20 +315,27 @@ public class UIManager : SingletonMono<UIManager>
     {
         // Show throw UI and wait for player to throw the ossicle
         // For simplicity, we just wait for 2 seconds here
+        yield return new WaitForSeconds(0.5f);
         throwManager.ThrowOssicles();
         yield return new WaitUntil(() => _ossicleResult >= 0);
+        yield return new WaitForSeconds(0.5f);
         poemManager.ShowPoem();
         if (phase == 1)
             yield return StartCoroutine(poemManager.ShowPoemAAndWaitForClick(_ossicleResult));
         else if (phase == 2)
             yield return StartCoroutine(poemManager.ShowPoemBAndWaitForClick(_ossicleResult));
+        else if (phase == 3)
+            yield return StartCoroutine(poemManager.ShowPoemCAndWaitForClick(_ossicleResult));
+        poemManager.HidePoem();
+        throwManager.ClearBoard(); // Clear thrown ossicles from the board
     }
 
     IEnumerator DeckAnimation(Card card)
     {
         // Show deck animation and wait for it to finish
         // For simplicity, we just wait for 2 seconds here
-        yield return new WaitForSeconds(2f);
+        yield return StartCoroutine(cardDeckManager.DealCard(card));
+        yield return new WaitForSeconds(1f);
     }
 
     IEnumerator EndGame(Card card1, Card card2)
@@ -336,12 +358,15 @@ public class UIManager : SingletonMono<UIManager>
         yield return StartCoroutine(StartMenu()); // Show start menu and wait for player to start the game
 
         // Phase 1
+        _phase = 1;
+        _enableInteraction = false;
         _remainingdMainNPCEncounter = new List<NPCData>(_mainNPC); // Reset the list of main NPCs to encounter
         yield return StartCoroutine(ThrowOssicle(1)); // Show throw UI and wait for player to throw the ossicle
         yield return StartCoroutine(ToggleOssicleView(false));
         _currentEnvironmentIndex = 0;
         OffsetEnvironmentIndex(0); // Ensure we are in the initial environment
         yield return StartCoroutine(SequenceDialog(_handOfTheKingData)); // Start the dialog sequence with the Hand of the King NPC
+        _enableInteraction = true;
         yield return new WaitUntil(() => _card1 != null && !_isInEncounter); // Wait until the first card is set (this would be done in the environment where the player can speak with NPCs)
         yield return StartCoroutine(ToggleOssicleView(true));
         yield return StartCoroutine(DeckAnimation(_card1)); // Show deck animation for the first card and wait for it to finish
@@ -349,12 +374,14 @@ public class UIManager : SingletonMono<UIManager>
 
         // Phase 2
         _phase = 2;
+        _enableInteraction = false;
         _remainingdMainNPCEncounter = new List<NPCData>(_mainNPC); // Reset the list of main NPCs to encounter
         yield return StartCoroutine(ThrowOssicle(2)); // Show throw UI again for the second throw and wait for player to throw the ossicle
         yield return StartCoroutine(ToggleOssicleView(false));
         _currentEnvironmentIndex = 0;
         OffsetEnvironmentIndex(0); // Ensure we are in the initial environment
         yield return StartCoroutine(SequenceDialog(_handOfTheKingData)); // Start the dialog sequence again with the Hand of the King NPC
+        _enableInteraction = true;
         yield return new WaitUntil(() => _card2 != null && !_isInEncounter); // Wait until the second card is set (this would be done in the environment where the player can speak with NPCs)
         yield return StartCoroutine(ToggleOssicleView(true));
         yield return StartCoroutine(DeckAnimation(_card2)); // Show deck animation for the second card and wait for it to finish
@@ -362,13 +389,16 @@ public class UIManager : SingletonMono<UIManager>
 
         // Ending
         _phase = 3;
+        _enableInteraction = false;
         yield return StartCoroutine(ThrowOssicle(3)); // Show throw UI again for the final throw and wait for player to throw the ossicle
         yield return StartCoroutine(ToggleOssicleView(false));
         _currentEnvironmentIndex = 0;
         OffsetEnvironmentIndex(0); // Ensure we are in the initial environment
         yield return StartCoroutine(EndGame(_card1, _card2)); // Start the end of the game based on the combination of the two cards
+        _enableInteraction = true;
 
         // Wait before reseting the game and starting over
+        Debug.Log("Game ended. Restarting...");
         yield return new WaitForSeconds(2f);
         ResetGame();
         ShowStartMenu();
@@ -426,9 +456,11 @@ public class UIManager : SingletonMono<UIManager>
         _dialogBox.ClearChoices();
 
         Debug.Log($"Has Encontered the {dialog.Name}? -> {npcData.HasEncountered}");
+        Debug.Log($"Is this a choice? -> {isChoice}");
+        Debug.Log($"Current phase: {_phase}");
         if (npcData.HasEncountered || !isChoice || _phase == 3)
         {
-            yield return StartCoroutine(_dialogBox.ShowTextAndWaitForClick(defaultPath.entries[Random.Range(0, defaultPath.entries.Count)].npcText));
+            yield return StartCoroutine(_dialogBox.ShowTextAndWaitForClick(defaultPath.entries[UnityEngine.Random.Range(0, defaultPath.entries.Count)].npcText));
 
             // Finally hide dialog
             HideDialog();
@@ -510,7 +542,7 @@ public class UIManager : SingletonMono<UIManager>
             if (_awaitingClick)
                 _clickReceived = true;
 
-        if (!Input.GetMouseButtonDown(0) || _isInEncounter) return;
+        if (!Input.GetMouseButtonDown(0) || _isInEncounter || !_enableInteraction) return;
 
         Debug.Log("Mouse click detected, checking for interactable...");
 

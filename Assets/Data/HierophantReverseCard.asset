@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: HierophantReverseCard
   m_EditorClassIdentifier: Assembly-CSharp::Card
   name: Hierophant Reversed
-  text: 
+  text: "The card looms in your hand, dark and oppressive, a symbol of corrupted
+    authority.  $Its weight crushes rather than guides, and rules twist into chains. 
+    $You feel the Hand of the King here\u2014stern no longer, but violent, intolerant,
+    and merciless to those who disobey.  $Every glance threatens punishment; every
+    command is enforced with iron and fear.  $The Hierophant Reversed reminds you
+    that order can become oppression, and that defiance may awaken the harshest wrath
+    of power."
   sprite: {fileID: 21300000, guid: 7db6682c29bd8282ca46a093ca4416da, type: 3}

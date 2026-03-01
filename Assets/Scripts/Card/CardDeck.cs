@@ -1,9 +1,10 @@
+using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class CardDeck : MonoBehaviour
 {
@@ -41,6 +42,8 @@ public class CardDeck : MonoBehaviour
 
     public IEnumerator DealCard(Card card)
     {
+        currentFullText = card.text;
+        card.text = "";
         transform.position = Vector3.zero;
         List<GameObject> cardList = new List<GameObject>(); 
         for(int i = 0; i < cardsPerDeck; i++)
@@ -56,7 +59,7 @@ public class CardDeck : MonoBehaviour
         {
             float parm = Mathf.SmoothStep(1.0f,0.0f,Mathf.Pow(Mathf.InverseLerp(150,0,i),1.5f));
             transform.position = Vector3.Lerp(centerPos+cameraTransform.up*.3f,centerPos,parm);
-            transform.rotation = Quaternion.Slerp( Quaternion.LookRotation(cameraTransform.up,cameraTransform.right) ,  Quaternion.Slerp(Quaternion.identity, Quaternion.LookRotation(cameraTransform.right,cameraTransform.up),0.3f), parm);
+            transform.rotation = cameraTransform.rotation * Quaternion.Slerp( Quaternion.LookRotation(cameraTransform.up,cameraTransform.right) ,  Quaternion.Slerp(Quaternion.identity, Quaternion.LookRotation(cameraTransform.right,cameraTransform.up),0.3f), parm);
             yield return new WaitForSeconds(.01f);
         }
 
@@ -102,20 +105,20 @@ public class CardDeck : MonoBehaviour
             }
         }
         
-        cardList[0].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = card.sprite;
 
         for(int i = 0; i < 50; i++)
         {
             float parm = Mathf.SmoothStep(1.0f,0.0f,Mathf.Pow(Mathf.InverseLerp(49,0,i),1.5f));
-            transform.rotation = Quaternion.Slerp( Quaternion.Slerp(Quaternion.identity, Quaternion.LookRotation(cameraTransform.right,cameraTransform.up),0.3f), Quaternion.identity, parm);
+            transform.rotation = cameraTransform.rotation * Quaternion.Slerp( Quaternion.Slerp(Quaternion.identity, Quaternion.LookRotation(cameraTransform.right,cameraTransform.up),0.3f), Quaternion.identity, parm);
 
             yield return new WaitForSeconds(.01f);
         }
         
+        cardList[0].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = card.sprite;
         for(int i = 0; i < 100; i++)
         {
             float parm = Mathf.SmoothStep(1.0f,0.0f,Mathf.Pow(Mathf.InverseLerp(99,0,i),1.5f));
-            cardList[0].transform.localRotation = Quaternion.Slerp(Quaternion.identity,Quaternion.LookRotation(-cameraTransform.forward,cameraTransform.up), parm);
+            cardList[0].transform.localRotation = Quaternion.Slerp(Quaternion.LookRotation(-cameraTransform.forward,cameraTransform.up), Quaternion.identity, parm);
             for(int j = 1; j < cardsPerDeck; j++)
             {
                 cardList[j].transform.localPosition = Vector3.Lerp(Vector3.zero,Vector3.up*20.0f,parm);
@@ -149,6 +152,8 @@ public class CardDeck : MonoBehaviour
         {
             Destroy(cardList[i]);
         }
+
+        cardPanel.SetActive(false);
     }
     
     public void ShowCardText()
@@ -179,12 +184,51 @@ public class CardDeck : MonoBehaviour
 
         foreach (char c in text)
         {
+            if (c == '$')
+            {
+                cardText.text += '\n';
+                continue; // Skip adding this character to the text
+            }
+
             cardText.text += c;
             yield return new WaitForSeconds(typewriterSpeed);
         }
 
         isTyping = false;
         typewriterCoroutine = null;
+    }
+
+    /// <summary>
+    /// Skip typewriter and show full text instantly
+    /// </summary>
+    public void SkipTypewriter()
+    {
+        if (typewriterCoroutine != null)
+        {
+            StopCoroutine(typewriterCoroutine);
+            typewriterCoroutine = null;
+        }
+
+        isTyping = false;
+
+        cardText.text = currentFullText.Replace('$', '\n');
+    }
+
+    /// <summary>
+    /// Handle input for advancing dialog
+    /// </summary>
+    private void Update()
+    {
+        if (cardPanel == null || !cardPanel.activeSelf)
+            return;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (isTyping)
+                SkipTypewriter();
+            else if (_awaitingClick)
+                _clickReceived = true;
+        }
     }
 
     [ContextMenu("Test Deal")] 

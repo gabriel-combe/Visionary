@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: FoolReverseCard
   m_EditorClassIdentifier: Assembly-CSharp::Card
   name: The Fool Reversed
-  text: 
+  text: "The card quivers in your hand, brimming with restless energy.  $Its laughter
+    is sharper now, daring and reckless, no longer just a whisper but a call to action. 
+    $You feel the Fool\u2019s spirit surge\u2014mischievous and clever, yes, but
+    now unstoppable, driven to stir the streets and ignite the people\u2019s fury. 
+    $Chaos is no longer a game; it is a plan, precise and urgent.  $The Fool Reversed
+    urges you forward: the spark is lit, the time to act has come."
   sprite: {fileID: 21300000, guid: 6ac614b0237f43ceb84fb2d4256b188b, type: 3}

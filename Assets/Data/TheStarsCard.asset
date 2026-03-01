@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: TheStarsCard
   m_EditorClassIdentifier: Assembly-CSharp::Card
   name: The Stars
-  text: 
+  text: "The card glimmers in your hand, a single star shining in the darkness. 
+    $Its light is soft, yet unwavering, guiding the lost and whispering truths unspoken. 
+    $You feel it pulse with the Princess\u2019s heart\u2014bound by duty, yet yearning
+    for freedom.  $Her secret is no longer hidden from you: her love belongs to the
+    Head of the Royal Guard, and her soul longs for the path she cannot yet take. 
+    $The Star reminds you that even in the shadows of obligation, hope and desire
+    can shine bright."
   sprite: {fileID: 21300000, guid: 40a584c545ee2d236a3c7985c38a47ff, type: 3}
