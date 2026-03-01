@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using static SO_DialogNPC;
 
 /// <summary>
 /// Dialog box UI with typewriter effect, choice buttons and controlled progression.
@@ -118,16 +119,13 @@ public class DialogBoxUI : MonoBehaviour
         yield return new WaitUntil(() => _clickReceived);
         _awaitingClick = false;
         _clickReceived = false;
-
-        dialogPanel.SetActive(false);
-
     }
 
     /// <summary>
     /// Show a set of choice strings (buttons) and wait until the player selects one.
     /// The chosen index will be available in LastSelectedChoice.
     /// </summary>
-    public IEnumerator ShowChoicesAndWait(List<(string, bool)> options)
+    public IEnumerator ShowChoicesAndWait(List<(DialogEntry, bool)> options)
     {
         if (choicesContainer == null || choiceButtonPrefab == null)
         {
@@ -145,11 +143,11 @@ public class DialogBoxUI : MonoBehaviour
             int index = i;
             var text = btnObj.GetComponentInChildren<TextMeshProUGUI>();
 
-            text.text = ""; // Start with empty text
-            for (int j = 0; j < 30; j++)
-                text.text += gibberishChars[Random.Range(0, gibberishChars.Length)].ToString(); // Random gibberish text for visual effect
+            text.text = "???"; // Start with empty text
+            //for (int j = 0; j < 30; j++)
+            //    text.text += gibberishChars[Random.Range(0, gibberishChars.Length)].ToString(); // Random gibberish text for visual effect
 
-            if (text != null && options[i].Item2) text.text = options[i].Item1;
+            if (text != null && options[i].Item2) text.text = options[i].Item1.playerText;
 
             btnObj.interactable = options[i].Item2;
             btnObj.onClick.RemoveAllListeners();
@@ -162,11 +160,9 @@ public class DialogBoxUI : MonoBehaviour
         choicesContainer.SetActive(true);
 
         yield return new WaitUntil(() => _selectedChoice >= 0);
-
-        ClearChoices();
     }
 
-    private void ClearChoices()
+    public void ClearChoices()
     {
         if (choicesContainer == null) return;
 
@@ -205,8 +201,6 @@ public class DialogBoxUI : MonoBehaviour
                 SkipTypewriter();
             else if (_awaitingClick)
                 _clickReceived = true;
-            else
-                HideDialog();
         }
     }
 }
