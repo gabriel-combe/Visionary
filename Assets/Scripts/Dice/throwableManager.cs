@@ -49,7 +49,7 @@ public class throwableManager : MonoBehaviour
                 {
                     float theta = -Mathf.PI*2.0f*Mathf.InverseLerp(0,numberOfOssiclesToThrow,i);
                     throwableInstances[i].rotation = UnityEngine.Random.rotationUniform;
-                    throwableInstances[i].position = new Vector3(Mathf.Cos(theta)*circleRadius, 2.0f, Mathf.Sin(theta)*circleRadius) + transform.position;
+                    throwableInstances[i].position = new Vector3(Mathf.Cos(theta)*circleRadius, height, Mathf.Sin(theta)*circleRadius) + transform.position;
                     throwableInstances[i].linearVelocity = UnityEngine.Random.onUnitSphere*randomVelocityMagnitude;
                     throwableInstances[i].angularVelocity = UnityEngine.Random.onUnitSphere*randomAngularMomentumMagnitude;
                 }
@@ -125,7 +125,7 @@ public class throwableManager : MonoBehaviour
         for (int i = 0; i < numberOfOssiclesToThrow; i++)
         {
             float theta = -Mathf.PI*2.0f*Mathf.InverseLerp(0,numberOfOssiclesToThrow,i);
-            Rigidbody instance = Instantiate(ossiclePrefab, new Vector3(Mathf.Cos(theta)*circleRadius, 2.0f, Mathf.Sin(theta)*circleRadius) + transform.position, Quaternion.identity).GetComponent<Rigidbody>(); 
+            Rigidbody instance = Instantiate(ossiclePrefab, new Vector3(Mathf.Cos(theta)*circleRadius, height, Mathf.Sin(theta)*circleRadius) + transform.position, Quaternion.identity).GetComponent<Rigidbody>(); 
             throwableInstances.Add(instance);
             instance.rotation = UnityEngine.Random.rotationUniform;
             instance.linearVelocity = UnityEngine.Random.onUnitSphere*randomVelocityMagnitude;
