@@ -36,6 +36,7 @@ public class DialogBoxUI : MonoBehaviour
     // Gibberish text characters list
     string gibberishChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?";
 
+
     /// <summary>
     /// Prepare dialog panel visuals (name, portrait) without starting a text flow.
     /// </summary>
@@ -56,6 +57,37 @@ public class DialogBoxUI : MonoBehaviour
         {
             spriteChara.sprite = dialog.Portrait;
             spriteChara.gameObject.SetActive(dialog.Portrait != null);
+        }
+
+        switch(dialog.Name)
+        {
+            case "Executionner":
+                AudioManager.Instance.SfxSource.PlayOneShot(AudioManager.Instance.VoiceExecutionner,1f);
+                break;
+            case "Fool":
+                AudioManager.Instance.SfxSource.PlayOneShot(AudioManager.Instance.VoiceFool,1f);
+                break;
+            case "Guard":
+                AudioManager.Instance.SfxSource.PlayOneShot(AudioManager.Instance.VoiceGuard,1f);
+                break;
+            case "Hand Of The King":
+                AudioManager.Instance.SfxSource.PlayOneShot(AudioManager.Instance.VoiceHandOfTheKing,1f);
+                break;
+            case "King":
+                AudioManager.Instance.SfxSource.PlayOneShot(AudioManager.Instance.VoiceKing,1f);
+                break;
+            case "Prince":
+                AudioManager.Instance.SfxSource.PlayOneShot(AudioManager.Instance.VoicePrince,1f);
+                break;
+            case "Princess":
+                AudioManager.Instance.SfxSource.PlayOneShot(AudioManager.Instance.VoicePrincess,1f);
+                break;
+            case "Servant":
+                AudioManager.Instance.SfxSource.PlayOneShot(AudioManager.Instance.VoiceServant,1f);
+                break;
+            default:
+                AudioManager.Instance.SfxSource.PlayOneShot(AudioManager.Instance.VoiceGuard,1f);
+                break;
         }
     }
 

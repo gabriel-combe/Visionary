@@ -32,4 +32,35 @@ public class AudioManager : SingletonMono<AudioManager>
     
     public AudioSource MusicSource => _musicSource;
     public AudioSource SfxSource => _sfxSource;
+
+    public AudioClip VoiceHandOfTheKing => _voiceHandOfTheKing;
+    public AudioClip VoiceFool => _voiceFool;
+    public AudioClip VoicePrince => _voicePrince;
+    public AudioClip VoicePrincess => _voicePrincess;
+    public AudioClip VoiceKing => _voiceKing;
+    public AudioClip VoiceExecutionner => _voiceExecutionner;
+    public AudioClip VoiceServant => _voiceServant;
+    public AudioClip VoiceGuard => _voiceGuard;
+
+    public AudioClip MenuMusic => _menuMusic;
+    public AudioClip MenuThrone => _menuThrone;
+    public AudioClip MenuTorture => _menuTorture;
+    public AudioClip MenuGarden => _menuGarden;
+
+    public AudioClip SfxButton => _sfxButton;
+    public AudioClip SfxCharacter => _sfxCharacter;
+    public AudioClip SfxMenu => _sfxMenu;
+    public List<AudioClip> SfxCards => _sfxCards;
+    public AudioClip SfxDice => _sfxDice;
+
+    void Awake()
+    {
+        //subscribe to decor change
+        //UIManager.Instance. += changeMusic
+    }
+
+    private void changeMusic()
+    {
+        
+    }
 }

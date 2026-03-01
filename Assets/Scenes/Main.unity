@@ -644,7 +644,7 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
-  - component: {fileID: 330585549}
+  - component: {fileID: 330585550}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -774,9 +774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioListener
-  nonRigidbodyVelocity: 0
-  attenuationObject: {fileID: 0}
---- !u!82 &330585549
+--- !u!82 &330585550
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -791,7 +789,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2171,6 +2169,7 @@ MonoBehaviour:
   _downArrow: {fileID: 916407874}
   _leftArrow: {fileID: 892123189}
   throwManager: {fileID: 20580779}
+  poemManager: {fileID: 0}
   _handOfTheKingData: {fileID: 316853426}
   _blackListChoice:
   - {fileID: 1126961876}
@@ -2510,8 +2509,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Click to start
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f239e167d7592844899cc6ef5fe7b2c7, type: 2}
-  m_sharedMaterial: {fileID: -8010186979296710789, guid: f239e167d7592844899cc6ef5fe7b2c7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2647,8 +2646,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Visionary
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f239e167d7592844899cc6ef5fe7b2c7, type: 2}
-  m_sharedMaterial: {fileID: -8010186979296710789, guid: f239e167d7592844899cc6ef5fe7b2c7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2769,28 +2768,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25db0ba4ac53764baa99029db93eefd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  musicSource: {fileID: 330585549}
-  sfxSource: {fileID: 330585549}
-  menuMusic: {fileID: 8300000, guid: a7abb734ef20870febe255e7581ca58d, type: 3}
-  menuThrone: {fileID: 8300000, guid: e638d05b739cc052596a609d9029eb39, type: 3}
-  menuTorture: {fileID: 8300000, guid: e981c664f5d833679bd74c1ada6dc9fa, type: 3}
-  menuGarden: {fileID: 8300000, guid: 3e5617a4be857790e916da5e8b984e28, type: 3}
-  sfxButton: {fileID: 8300000, guid: a59ba39f0cad75b949436313498a3fac, type: 3}
-  sfxCharacter: {fileID: 8300000, guid: 9f82f26e62f6b83c7977f934870cf741, type: 3}
-  sfxMenu: {fileID: 8300000, guid: 9f82f26e62f6b83c7977f934870cf741, type: 3}
-  sfxCards:
+  _musicSource: {fileID: 330585550}
+  _sfxSource: {fileID: 330585550}
+  _menuMusic: {fileID: 8300000, guid: a7abb734ef20870febe255e7581ca58d, type: 3}
+  _menuThrone: {fileID: 8300000, guid: e638d05b739cc052596a609d9029eb39, type: 3}
+  _menuTorture: {fileID: 8300000, guid: e981c664f5d833679bd74c1ada6dc9fa, type: 3}
+  _menuGarden: {fileID: 8300000, guid: 3e5617a4be857790e916da5e8b984e28, type: 3}
+  _sfxButton: {fileID: 8300000, guid: 9f82f26e62f6b83c7977f934870cf741, type: 3}
+  _sfxCharacter: {fileID: 8300000, guid: a59ba39f0cad75b949436313498a3fac, type: 3}
+  _sfxMenu: {fileID: 8300000, guid: 9f82f26e62f6b83c7977f934870cf741, type: 3}
+  _sfxCards:
   - {fileID: 8300000, guid: 1baf5a5a9ff32dd32b033de3049590f8, type: 3}
   - {fileID: 8300000, guid: 26a43f502d09279aea1718e076ae78bc, type: 3}
   - {fileID: 8300000, guid: f2908b45a67f1796ba7f87c61dcf8589, type: 3}
-  sfxDice: {fileID: 8300000, guid: c3c99f8830e18ac8c98b47feebd1f25d, type: 3}
-  voiceHandOfTheKing: {fileID: 8300000, guid: 6f1e6757e43178c33ac6e554d2202709, type: 3}
-  voiceFool: {fileID: 8300000, guid: 7787b6bae1c698b578be8be1c67dbbf7, type: 3}
-  voicePrince: {fileID: 8300000, guid: a671a2bf333794f24879357390cc8973, type: 3}
-  voicePrincess: {fileID: 8300000, guid: 7dc12ac9b943618faa372535d450b52a, type: 3}
-  voiceKing: {fileID: 8300000, guid: 48839c250fc40d65dbb0f50e1fe1c30e, type: 3}
-  voiceExecutionner: {fileID: 8300000, guid: 5622139071baa45a09874b6e16559cb2, type: 3}
-  voiceServant: {fileID: 8300000, guid: 571f39e20daa86764ba4767a8724c6dd, type: 3}
-  voiceGuard: {fileID: 8300000, guid: c20b3ef8254da1f95a0f7264aff4687e, type: 3}
+  _sfxDice: {fileID: 8300000, guid: c3c99f8830e18ac8c98b47feebd1f25d, type: 3}
+  _voiceHandOfTheKing: {fileID: 8300000, guid: 6f1e6757e43178c33ac6e554d2202709, type: 3}
+  _voiceFool: {fileID: 8300000, guid: 7787b6bae1c698b578be8be1c67dbbf7, type: 3}
+  _voicePrince: {fileID: 8300000, guid: a671a2bf333794f24879357390cc8973, type: 3}
+  _voicePrincess: {fileID: 8300000, guid: 7dc12ac9b943618faa372535d450b52a, type: 3}
+  _voiceKing: {fileID: 8300000, guid: 48839c250fc40d65dbb0f50e1fe1c30e, type: 3}
+  _voiceExecutionner: {fileID: 8300000, guid: 5622139071baa45a09874b6e16559cb2, type: 3}
+  _voiceServant: {fileID: 8300000, guid: 571f39e20daa86764ba4767a8724c6dd, type: 3}
+  _voiceGuard: {fileID: 8300000, guid: c20b3ef8254da1f95a0f7264aff4687e, type: 3}
 --- !u!1 &1800582490
 GameObject:
   m_ObjectHideFlags: 0
@@ -3250,9 +3249,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1257653783928274940, guid: 863b10238424c6843b21ff0a44a471cc, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 1257653783928274940, guid: 863b10238424c6843b21ff0a44a471cc, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -8010186979296710789, guid: f239e167d7592844899cc6ef5fe7b2c7, type: 2}
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 1257653783928274940, guid: 863b10238424c6843b21ff0a44a471cc, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3044660775369249464, guid: 863b10238424c6843b21ff0a44a471cc, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -3346,9 +3353,17 @@ PrefabInstance:
       value: 96.864944
       objectReference: {fileID: 0}
     - target: {fileID: 5887459609463022406, guid: 863b10238424c6843b21ff0a44a471cc, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 5887459609463022406, guid: 863b10238424c6843b21ff0a44a471cc, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -8010186979296710789, guid: f239e167d7592844899cc6ef5fe7b2c7, type: 2}
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 5887459609463022406, guid: 863b10238424c6843b21ff0a44a471cc, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7150921857561733441, guid: 863b10238424c6843b21ff0a44a471cc, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 351
