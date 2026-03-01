@@ -14,9 +14,9 @@ public class throwableManager : MonoBehaviour
 
     public float height = 1.0f;
     public int numberOfOssiclesToThrow = 8;
-    public float circleRadius = 0.5f;
+    public float circleRadius = 0.25f;
     public float randomVelocityMagnitude = 0.5f;
-    public float randomAngularMomentumMagnitude = 6.0f;
+    public float randomAngularMomentumMagnitude = 18.0f;
 
     public float epsilon = 1e-2f;
     public float timeout_period = 10.0f;
@@ -39,17 +39,17 @@ public class throwableManager : MonoBehaviour
             for(int i = 0; i < throwableInstances.Count; i++)
             {
                 // if OOB throw again
-                if(    throwableInstances[i].position.x < lowBound.x
-                    || throwableInstances[i].position.y < lowBound.y
-                    || throwableInstances[i].position.z < lowBound.z
-                    || throwableInstances[i].position.x > highBound.x
-                    || throwableInstances[i].position.y > highBound.y
-                    || throwableInstances[i].position.z > highBound.z
+                if(    throwableInstances[i].position.x-transform.position.x < lowBound.x
+                    || throwableInstances[i].position.y-transform.position.y < lowBound.y
+                    || throwableInstances[i].position.z-transform.position.z < lowBound.z
+                    || throwableInstances[i].position.x-transform.position.x > highBound.x
+                    || throwableInstances[i].position.y-transform.position.y > highBound.y
+                    || throwableInstances[i].position.z-transform.position.z > highBound.z
                 )
                 {
                     float theta = -Mathf.PI*2.0f*Mathf.InverseLerp(0,numberOfOssiclesToThrow,i);
                     throwableInstances[i].rotation = UnityEngine.Random.rotationUniform;
-                    throwableInstances[i].position = new Vector3(Mathf.Cos(theta)*circleRadius, 2.0f, Mathf.Sin(theta)*circleRadius);
+                    throwableInstances[i].position = new Vector3(Mathf.Cos(theta)*circleRadius, 2.0f, Mathf.Sin(theta)*circleRadius) + transform.position;
                     throwableInstances[i].linearVelocity = UnityEngine.Random.onUnitSphere*randomVelocityMagnitude;
                     throwableInstances[i].angularVelocity = UnityEngine.Random.onUnitSphere*randomAngularMomentumMagnitude;
                 }
@@ -125,7 +125,7 @@ public class throwableManager : MonoBehaviour
         for (int i = 0; i < numberOfOssiclesToThrow; i++)
         {
             float theta = -Mathf.PI*2.0f*Mathf.InverseLerp(0,numberOfOssiclesToThrow,i);
-            Rigidbody instance = Instantiate(ossiclePrefab, new Vector3(Mathf.Cos(theta)*circleRadius, 2.0f, Mathf.Sin(theta)*circleRadius), Quaternion.identity).GetComponent<Rigidbody>(); 
+            Rigidbody instance = Instantiate(ossiclePrefab, new Vector3(Mathf.Cos(theta)*circleRadius, 2.0f, Mathf.Sin(theta)*circleRadius) + transform.position, Quaternion.identity).GetComponent<Rigidbody>(); 
             throwableInstances.Add(instance);
             instance.rotation = UnityEngine.Random.rotationUniform;
             instance.linearVelocity = UnityEngine.Random.onUnitSphere*randomVelocityMagnitude;
