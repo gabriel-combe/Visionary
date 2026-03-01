@@ -6,5 +6,5 @@ public class Card : ScriptableObject
 {
     public string name;
     public string text;
-    public Image sprite;
+    public Sprite sprite;
 }
