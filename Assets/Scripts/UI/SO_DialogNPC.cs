@@ -5,8 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Dialog/NPC", fileName = "DialogNPC")]
 public class SO_DialogNPC : ScriptableObject
 {   
-    public string Name;
-    public Sprite Portrait;
+    [SerializeField] private string _name;
+    [SerializeField] private Sprite _portrait;
+    [SerializeField] private Card _card;
+    [SerializeField]private List<DialogPath> _dialogPaths = new List<DialogPath>();
+
+    public string Name => _name;
+    public Sprite Portrait => _portrait;
+    public Card Card => _card;
+    public List<DialogPath> DialogPaths => _dialogPaths;
 
     [Serializable]
     public class DialogEntry
@@ -21,5 +28,4 @@ public class SO_DialogNPC : ScriptableObject
         public List<DialogEntry> entries = new List<DialogEntry>();
     }
 
-    public List<DialogPath> DialogPaths = new List<DialogPath>();
 }
