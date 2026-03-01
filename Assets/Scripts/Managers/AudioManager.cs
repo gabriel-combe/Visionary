@@ -3,24 +3,24 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    // Source
+    [Header("Sources")]
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
 
-    // Music
+    [Header("Music")]
     [SerializeField] private AudioClip menuMusic;
     [SerializeField] private AudioClip menuThrone;
     [SerializeField] private AudioClip menuTorture;
     [SerializeField] private AudioClip menuGarden;
 
-    // SFX
+    [Header("SFX")]
     [SerializeField] private AudioClip sfxButton;
     [SerializeField] private AudioClip sfxCharacter;
     [SerializeField] private AudioClip sfxMenu;
     [SerializeField] private List<AudioClip> sfxCards;
     [SerializeField] private AudioClip sfxDice;
 
-    // Voices
+    [Header("Voices")]
     [SerializeField] private AudioClip voiceHandOfTheKing;
     [SerializeField] private AudioClip voiceFool;
     [SerializeField] private AudioClip voicePrince;
