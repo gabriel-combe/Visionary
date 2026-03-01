@@ -13,5 +13,12 @@ MonoBehaviour:
   m_Name: FoolCard
   m_EditorClassIdentifier: Assembly-CSharp::Card
   name: The Fool
-  text: 'The card spins in your hand, its surface shimmering with chance and uncertainty.  '
+  text: "The card dances in your hand, light and unpredictable, yet full of hidden
+    purpose.  $It laughs at rules and mocks the rigid order of the world, daring
+    to step where others fear.  $You feel the Fools\u2019s spirit within it\u2014mischievous,
+    clever, and unbound, yet driven by a fire that burns for change.  $Behind the
+    laughter and the tricks, a plan takes shape: the people\u2019s anger, the kingdom\u2019s
+    rot, and the spark of revolution waiting to ignite.  $The Fool reminds you that
+    even chaos can have a purpose, and that the smallest spark can bring down the
+    mightiest walls."
   sprite: {fileID: 21300000, guid: aabccfaf4f8a5da4f985a7378645cf71, type: 3}
