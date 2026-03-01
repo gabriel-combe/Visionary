@@ -36,6 +36,48 @@ public class DialogBoxUI : MonoBehaviour
     // Gibberish text characters list
     string gibberishChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?";
 
+    private AudioManager audioManager;
+
+    void Awake()
+    {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+    }
+    private void playSfx()
+    {
+        if (_currentDialog.Name == "Hand Of The King")
+        {
+            audioManager.SfxSource.PlayOneShot(audioManager.VoiceHandOfTheKing, 1f);
+        }
+        else if (_currentDialog.Name == "Executionner")
+        {
+            audioManager.SfxSource.PlayOneShot(audioManager.VoiceExecutionner, 1f);
+        }
+        else if (_currentDialog.Name == "Guard")
+        {
+            audioManager.SfxSource.PlayOneShot(audioManager.VoiceGuard, 1f);
+        }
+        else if (_currentDialog.Name == "King")
+        {
+            audioManager.SfxSource.PlayOneShot(audioManager.VoiceKing, 1f);
+        }
+        else if (_currentDialog.Name == "Prince")
+        {
+            audioManager.SfxSource.PlayOneShot(audioManager.VoicePrince, 1f);
+        }
+        else if (_currentDialog.Name == "Princess")
+        {
+            audioManager.SfxSource.PlayOneShot(audioManager.VoicePrincess, 1f);
+        }
+        else if (_currentDialog.Name == "Servant")
+        {
+            audioManager.SfxSource.PlayOneShot(audioManager.VoiceServant, 1f);
+        }
+        else if (_currentDialog.Name == "Fool")
+        {
+            audioManager.SfxSource.PlayOneShot(audioManager.VoiceFool, 1f);
+        }
+    }
+
     /// <summary>
     /// Prepare dialog panel visuals (name, portrait) without starting a text flow.
     /// </summary>
@@ -135,6 +177,8 @@ public class DialogBoxUI : MonoBehaviour
 
         currentFullText = text;
 
+        playSfx();
+
         if (typewriterCoroutine != null)
             StopCoroutine(typewriterCoroutine);
 
@@ -142,6 +186,8 @@ public class DialogBoxUI : MonoBehaviour
 
         // Wait until typewriter finished
         yield return new WaitUntil(() => !isTyping);
+
+        audioManager.SfxSource.Stop();
 
         // Now wait for a click to proceed
         _awaitingClick = true;
