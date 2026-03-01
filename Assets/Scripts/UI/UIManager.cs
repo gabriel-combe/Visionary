@@ -29,8 +29,9 @@ public class UIManager : SingletonMono<UIManager>
     [SerializeField] private Button _downArrow;
     [SerializeField] private Button _leftArrow;
 
-    [Header("Throwable")]
+    [Header("Manager")]
     [SerializeField] private throwableManager throwManager;
+    [SerializeField] private PoemUi poemManager;
 
     [Header("Dialog Data")]
     [SerializeField] private NPCData _handOfTheKingData;
@@ -42,7 +43,9 @@ public class UIManager : SingletonMono<UIManager>
     // logic state
     private bool _isInEncounter = false;
     private int _diceResult = -1;
+    private int _ossicleResult = -1;
     private int _currentEnvironmentIndex = 0;
+    private bool _ossicleView = true;
     private int _phase = 1; // 1 = first throw, 2 = second throw, 3 = ending
     private List<NPCData> _remainingdMainNPCEncounter;
     private Card _card1 = null;
@@ -57,10 +60,12 @@ public class UIManager : SingletonMono<UIManager>
     private bool _clickReceived = false;
 
     public int CurrentEnvironmentIndex => _currentEnvironmentIndex;
+    public bool OssicleView => _ossicleView;
 
     private void Start()
     {
         throwableManager.diceThrowFinished += OnDiceThrowFinished; // Subscribe to dice throw results
+        throwableManager.ossicleThrowFinished += OnOssicleThrowFinished; // Subscribe to ossicle throw results (if needed, can be handled separately)
 
         // Setup arrow button listeners
         _upArrow.onClick.AddListener(OnUpArrowClicked);
@@ -258,6 +263,7 @@ public class UIManager : SingletonMono<UIManager>
     /// <returns></returns>
     IEnumerator ToggleOssicleView(bool toggle)
     {
+        _ossicleView = toggle;
         ToggleArrow(!toggle);
         // transition camera to ossicle view close
 
@@ -265,7 +271,7 @@ public class UIManager : SingletonMono<UIManager>
         _cameraTweenRotate?.Kill();
 
         _cameraTweenMove = _mainCamera.transform.DOMove(toggle ? new Vector3(0, 0, 1) : new Vector3(0, 0, -1), 0.5f).SetEase(Ease.InOutSine);
-        _cameraTweenRotate = _mainCamera.transform.DORotate(toggle ? new Vector3(25, 0, 0) : Vector3.zero, 0.5f).SetEase(Ease.InOutSine);
+        _cameraTweenRotate = _mainCamera.transform.DORotate(toggle ? new Vector3(60, 0, 0) : Vector3.zero, 0.5f).SetEase(Ease.InOutSine);
 
         yield return _cameraTweenMove.WaitForCompletion();
         yield return _cameraTweenRotate.WaitForCompletion();
@@ -294,7 +300,13 @@ public class UIManager : SingletonMono<UIManager>
     {
         // Show throw UI and wait for player to throw the ossicle
         // For simplicity, we just wait for 2 seconds here
-        yield return new WaitForSeconds(2f);
+        throwManager.ThrowOssicles();
+        yield return new WaitUntil(() => _ossicleResult >= 0);
+        poemManager.ShowPoem();
+        if (phase == 1)
+            yield return StartCoroutine(poemManager.ShowPoemAAndWaitForClick(_ossicleResult));
+        else if (phase == 2)
+            yield return StartCoroutine(poemManager.ShowPoemBAndWaitForClick(_ossicleResult));
     }
 
     IEnumerator DeckAnimation(Card card)
@@ -320,6 +332,7 @@ public class UIManager : SingletonMono<UIManager>
     {
         // Start Menu
         ToggleArrow(false);
+        yield return StartCoroutine(ToggleOssicleView(true));
         yield return StartCoroutine(StartMenu()); // Show start menu and wait for player to start the game
 
         // Phase 1
@@ -519,6 +532,12 @@ public class UIManager : SingletonMono<UIManager>
     {
         Debug.Log($"Received dice throw result: {result}");
         _diceResult = result;
+    }
+
+    private void OnOssicleThrowFinished(int result)
+    {
+        Debug.Log($"Received ossicle throw result: {result}");
+        _ossicleResult = result;
     }
 }
 
