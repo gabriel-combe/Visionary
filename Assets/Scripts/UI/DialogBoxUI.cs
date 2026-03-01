@@ -23,6 +23,7 @@ public class DialogBoxUI : MonoBehaviour
     private bool isTyping = false;
     private Coroutine typewriterCoroutine;
     private string currentFullText = "";
+    private SO_DialogNPC _currentDialog;
 
     // Interaction control
     private bool _awaitingClick = false;
@@ -40,6 +41,8 @@ public class DialogBoxUI : MonoBehaviour
     /// </summary>
     public void ShowDialog(SO_DialogNPC dialog)
     {
+        _currentDialog = dialog;
+
         if (dialogPanel != null)
             dialogPanel.SetActive(true);
 
@@ -166,6 +169,7 @@ public class DialogBoxUI : MonoBehaviour
             var btnObj = Instantiate(choiceButtonPrefab, choicesContainer.transform);
             btnObj.gameObject.SetActive(true);
             var text = btnObj.GetComponentInChildren<TextMeshProUGUI>();
+            text.richText = true; // Enable rich text for italics
 
             text.text = "???"; // Start with empty text
             //for (int j = 0; j < 30; j++)
@@ -173,10 +177,12 @@ public class DialogBoxUI : MonoBehaviour
 
             if (text != null && options[i].Item2)
             {
-                int place = options[i].Item1.playerText.LastIndexOf('/');
-                text.text = options[i].Item1.playerText.Remove(place).Insert(place, "</i>");
-                text.text = text.text.Replace("/", "<i>");
+                text.text = options[i].Item1.playerText;
+                text.text = options[i].Item1.playerText.Replace("/", "<i>");
+                int place = options[i].Item1.playerText.LastIndexOf("<i>");
 
+                if (place >= 0)
+                    text.text = text.text.Remove(place).Insert(place, "</i>");
             }
             int index = options[i].Item3; // Capture index for the listener
             Debug.Log($"Created choice button {index} with text: {text.text} (enabled: {options[i].Item2})");

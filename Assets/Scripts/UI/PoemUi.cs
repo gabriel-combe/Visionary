@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class PoemUi : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI poemText;
     [SerializeField] private GameObject poemPanel;
