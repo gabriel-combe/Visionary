@@ -71,7 +71,8 @@ public class throwableManager : MonoBehaviour
         int upDog = 0;
         for(int i = 0; i < throwableInstances.Count; i++)
         {
-            if(Quaternion.Dot(throwableInstances[i].rotation,Quaternion.identity)>0.0)
+            Transform upT = throwableInstances[i].transform.GetChild(0);
+            if(Vector3.Dot(Vector3.Normalize(upT.position-throwableInstances[i].transform.position),Vector3.up)>0.0)
             {
                 upDog++;
             }
