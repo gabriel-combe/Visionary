@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: FoolCard
   m_EditorClassIdentifier: Assembly-CSharp::Card
   name: The Fool
-  text: 
+  text: 'The card spins in your hand, its surface shimmering with chance and uncertainty.  '
   sprite: {fileID: 21300000, guid: aabccfaf4f8a5da4f985a7378645cf71, type: 3}
