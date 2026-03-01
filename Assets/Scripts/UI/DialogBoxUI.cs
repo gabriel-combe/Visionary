@@ -88,7 +88,7 @@ public class DialogBoxUI : MonoBehaviour
 
         foreach (char c in text)
         {
-            if (c != '$')
+            if (c == '$')
             {
                 // Now wait for a click to proceed
                 _awaitingClick = true;
@@ -101,15 +101,22 @@ public class DialogBoxUI : MonoBehaviour
             }
 
             if (c == '/' && !italicOpen)
+            {
                 dialogText.text += "<i>";
+                continue;
+            }
             else if (c == '/')
+            {
                 dialogText.text += "</i>";
-
+                continue;
+            }
+            
             dialogText.text += c;
             yield return new WaitForSeconds(typewriterSpeed);
         }
 
         isTyping = false;
+        italicOpen = false;
         typewriterCoroutine = null;
     }
 
@@ -164,7 +171,13 @@ public class DialogBoxUI : MonoBehaviour
             //for (int j = 0; j < 30; j++)
             //    text.text += gibberishChars[Random.Range(0, gibberishChars.Length)].ToString(); // Random gibberish text for visual effect
 
-            if (text != null && options[i].Item2) text.text = options[i].Item1.playerText;
+            if (text != null && options[i].Item2)
+            {
+                int place = options[i].Item1.playerText.LastIndexOf('/');
+                text.text = options[i].Item1.playerText.Remove(place).Insert(place, "</i>");
+                text.text = text.text.Replace("/", "<i>");
+
+            }
             int index = options[i].Item3; // Capture index for the listener
             Debug.Log($"Created choice button {index} with text: {text.text} (enabled: {options[i].Item2})");
 
