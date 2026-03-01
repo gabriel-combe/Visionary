@@ -59,10 +59,18 @@ public class AudioManager : MonoBehaviour
 
     void OnEnable()
     {
-        UIManager.Instance.onEnvironmentChange += ChangeMusic;
+        UIManager.onEnvironmentChange += ChangeMusicEnv;
+        UIManager.onOssicleChange += ChangeMusicOss;
+    }
+    public void ChangeMusicOss(bool id)
+    {
+        if(id)
+        {
+            StartCoroutine(FadeInOut(_menuMusic));
+        }
     }
 
-    public void ChangeMusic(int id)
+    public void ChangeMusicEnv(int id)
     {
         Debug.Log("PIPIIII");
         if (id == 0)
@@ -81,34 +89,36 @@ public class AudioManager : MonoBehaviour
 
     private IEnumerator FadeInOut(AudioClip clip)
     {
-        // --- 1. FADE OUT ---
-        float startVolume = _musicSource.volume;
-        float timer = 0;
-
-        while (timer < fadeDuration)
+        if(_musicSource.clip != clip)
         {
-            timer += Time.deltaTime;
-            _musicSource.volume = Mathf.Lerp(startVolume, 0, timer / fadeDuration);
-            yield return null;
+            float startVolume = _musicSource.volume;
+            float timer = 0;
+
+            while (timer < fadeDuration)
+            {
+                timer += Time.deltaTime;
+                _musicSource.volume = Mathf.Lerp(startVolume, 0, timer / fadeDuration);
+                yield return null;
+            }
+
+            // Ensure it's exactly 0 and stop
+            _musicSource.volume = 0;
+            _musicSource.Stop();
+
+            // --- 2. SWITCH CLIP ---
+            _musicSource.clip = clip;
+            _musicSource.Play();
+
+            // --- 3. FADE IN ---
+            timer = 0;
+            while (timer < fadeDuration)
+            {
+                timer += Time.deltaTime;
+                _musicSource.volume = Mathf.Lerp(0, 1, timer / fadeDuration);
+                yield return null;
+            }
+
+            _musicSource.volume = 1;
         }
-
-        // Ensure it's exactly 0 and stop
-        _musicSource.volume = 0;
-        _musicSource.Stop();
-
-        // --- 2. SWITCH CLIP ---
-        _musicSource.clip = clip;
-        _musicSource.Play();
-
-        // --- 3. FADE IN ---
-        timer = 0;
-        while (timer < fadeDuration)
-        {
-            timer += Time.deltaTime;
-            _musicSource.volume = Mathf.Lerp(0, 1, timer / fadeDuration);
-            yield return null;
-        }
-
-        _musicSource.volume = 1;
     }
 }
