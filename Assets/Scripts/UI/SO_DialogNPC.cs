@@ -7,12 +7,12 @@ public class SO_DialogNPC : ScriptableObject
 {   
     [SerializeField] private string _name;
     [SerializeField] private Sprite _portrait;
-    [SerializeField] private Card _card;
+    [SerializeField] private List<Card> _cards;
     [SerializeField]private List<DialogPath> _dialogPaths = new List<DialogPath>();
 
     public string Name => _name;
     public Sprite Portrait => _portrait;
-    public Card Card => _card;
+    public List<Card> Cards => _cards;
     public List<DialogPath> DialogPaths => _dialogPaths;
 
     [Serializable]

@@ -3,13 +3,18 @@ using UnityEngine;
 public class NPCData : MonoBehaviour
 {
     [SerializeField] private SO_DialogNPC _dialogData;
-    private int _numberOfEncounters = 0;
+    private bool _hasEncountered = false;
 
     public SO_DialogNPC DialogData => _dialogData;
-    public int NumberOfEncounters => _numberOfEncounters;
+    public bool HasEncountered => _hasEncountered;
 
-    public void IncrementEncounters()
+    public void Encountered()
     {
-        _numberOfEncounters++;
+        _hasEncountered = true;
+    }
+
+    public void ResetEncounters()
+    {
+        _hasEncountered = false;
     }
 }

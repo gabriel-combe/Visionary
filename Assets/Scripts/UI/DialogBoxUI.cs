@@ -84,9 +84,27 @@ public class DialogBoxUI : MonoBehaviour
     {
         isTyping = true;
         dialogText.text = "";
+        bool italicOpen = false;
 
         foreach (char c in text)
         {
+            if (c != '$')
+            {
+                // Now wait for a click to proceed
+                _awaitingClick = true;
+                _clickReceived = false;
+                yield return new WaitUntil(() => _clickReceived);
+                _awaitingClick = false;
+                _clickReceived = false;
+                dialogText.text = ""; // Clear text for next segment
+                continue; // Skip adding this character to the text
+            }
+
+            if (c == '/' && !italicOpen)
+                dialogText.text += "<i>";
+            else if (c == '/')
+                dialogText.text += "</i>";
+
             dialogText.text += c;
             yield return new WaitForSeconds(typewriterSpeed);
         }
@@ -125,7 +143,7 @@ public class DialogBoxUI : MonoBehaviour
     /// Show a set of choice strings (buttons) and wait until the player selects one.
     /// The chosen index will be available in LastSelectedChoice.
     /// </summary>
-    public IEnumerator ShowChoicesAndWait(List<(DialogEntry, bool)> options)
+    public IEnumerator ShowChoicesAndWait(List<(DialogEntry, bool, int)> options)
     {
         if (choicesContainer == null || choiceButtonPrefab == null)
         {
@@ -140,7 +158,6 @@ public class DialogBoxUI : MonoBehaviour
         {
             var btnObj = Instantiate(choiceButtonPrefab, choicesContainer.transform);
             btnObj.gameObject.SetActive(true);
-            int index = i;
             var text = btnObj.GetComponentInChildren<TextMeshProUGUI>();
 
             text.text = "???"; // Start with empty text
@@ -148,6 +165,8 @@ public class DialogBoxUI : MonoBehaviour
             //    text.text += gibberishChars[Random.Range(0, gibberishChars.Length)].ToString(); // Random gibberish text for visual effect
 
             if (text != null && options[i].Item2) text.text = options[i].Item1.playerText;
+            int index = options[i].Item3; // Capture index for the listener
+            Debug.Log($"Created choice button {index} with text: {text.text} (enabled: {options[i].Item2})");
 
             btnObj.interactable = options[i].Item2;
             btnObj.onClick.RemoveAllListeners();
