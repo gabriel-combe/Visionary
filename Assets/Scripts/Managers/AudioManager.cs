@@ -1,34 +1,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : SingletonMono<AudioManager>
+//public class AudioManager : SingletonMono<AudioManager>
+public class AudioManager : MonoBehaviour
 {
     [Header("Sources")]
-    [SerializeField] private AudioSource _musicSource;
-    [SerializeField] private AudioSource _sfxSource;
+    [SerializeField] public AudioSource _musicSource;
+    [SerializeField] public AudioSource _sfxSource;
 
     [Header("Music")]
-    [SerializeField] private AudioClip _menuMusic;
-    [SerializeField] private AudioClip _menuThrone;
-    [SerializeField] private AudioClip _menuTorture;
-    [SerializeField] private AudioClip _menuGarden;
+    [SerializeField] public AudioClip _menuMusic;
+    [SerializeField] public AudioClip _menuThrone;
+    [SerializeField] public AudioClip _menuTorture;
+    [SerializeField] public AudioClip _menuGarden;
 
     [Header("SFX")]
-    [SerializeField] private AudioClip _sfxButton;
-    [SerializeField] private AudioClip _sfxCharacter;
-    [SerializeField] private AudioClip _sfxMenu;
-    [SerializeField] private List<AudioClip> _sfxCards;
-    [SerializeField] private AudioClip _sfxDice;
+    [SerializeField] public AudioClip _sfxButton;
+    [SerializeField] public AudioClip _sfxCharacter;
+    [SerializeField] public AudioClip _sfxMenu;
+    [SerializeField] public List<AudioClip> _sfxCards;
+    [SerializeField] public AudioClip _sfxDice;
 
     [Header("Voices")]
-    [SerializeField] private AudioClip _voiceHandOfTheKing;
-    [SerializeField] private AudioClip _voiceFool;
-    [SerializeField] private AudioClip _voicePrince;
-    [SerializeField] private AudioClip _voicePrincess;
-    [SerializeField] private AudioClip _voiceKing;
-    [SerializeField] private AudioClip _voiceExecutionner;
-    [SerializeField] private AudioClip _voiceServant;
-    [SerializeField] private AudioClip _voiceGuard;
+    [SerializeField] public AudioClip _voiceHandOfTheKing;
+    [SerializeField] public AudioClip _voiceFool;
+    [SerializeField] public AudioClip _voicePrince;
+    [SerializeField] public AudioClip _voicePrincess;
+    [SerializeField] public AudioClip _voiceKing;
+    [SerializeField] public AudioClip _voiceExecutionner;
+    [SerializeField] public AudioClip _voiceServant;
+    [SerializeField] public AudioClip _voiceGuard;
     
     public AudioSource MusicSource => _musicSource;
     public AudioSource SfxSource => _sfxSource;
@@ -59,7 +60,7 @@ public class AudioManager : SingletonMono<AudioManager>
         //UIManager.Instance. += changeMusic
     }
 
-    private void changeMusic()
+    public void changeMusic()
     {
         
     }
