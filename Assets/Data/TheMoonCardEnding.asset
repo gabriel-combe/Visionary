@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 377d81b95280100419232c2d7bed21d5, type: 3}
+  m_Name: TheMoonCardEnding
+  m_EditorClassIdentifier: Assembly-CSharp::Card
+  name: The Moon
+  text: "The card glows pale in your hand, a soft, silvery light that casts long
+    shadows over familiar paths.  $The wedding unfolds as it always was meant to\u2014grand,
+    orderly, and seemingly perfect.  $The princess smiles, the prince stands proud,
+    the court applauds. Yet beneath the surface, nothing has shifted.  $Secrets remain
+    hidden, desires unspoken, and the wheel of duty continues to turn.  $The Moon
+    reminds you that sometimes, destiny moves on without interruption, leaving the
+    world unchanged, and the hearts of those within it quietly yearning."
+  sprite: {fileID: 21300000, guid: 3cdaa73205d856844b4c3fe7293cbba9, type: 3}

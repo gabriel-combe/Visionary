@@ -41,6 +41,7 @@ public class UIManager : SingletonMono<UIManager>
     [SerializeField] private Card _wheelOfFortune;
     [SerializeField] private Card _wheelOfFortuneReversed;
 
+    [Serializable]
     public class CardAssociation
     {
         public Card card1;
@@ -65,7 +66,8 @@ public class UIManager : SingletonMono<UIManager>
     // UI state
     private Tween _cameraTweenMove;
     private Tween _cameraTweenRotate;
-    public Action<int> onEnvironmentChange;
+    public static event Action<int> onEnvironmentChange;
+    public static event Action<bool> onOssicleChange;
 
     // Interaction control
     private bool _awaitingClick = false;
@@ -167,6 +169,7 @@ public class UIManager : SingletonMono<UIManager>
         if (_startMenu != null)
         {
             _startMenu.SetActive(true);
+            _startMenu.GetComponent<CanvasGroup>().alpha = 1f;
         }
     }
 
@@ -280,6 +283,7 @@ public class UIManager : SingletonMono<UIManager>
     {
         _ossicleView = toggle;
         ToggleArrow(!toggle);
+        onOssicleChange?.Invoke(_ossicleView);
         // transition camera to ossicle view close
 
         _cameraTweenMove?.Kill();
