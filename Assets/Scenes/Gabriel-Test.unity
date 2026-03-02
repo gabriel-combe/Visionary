@@ -752,7 +752,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 978d5c5e376a20946b0c333085b8653e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1171,22 +1171,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PoemPanel
       objectReference: {fileID: 0}
-    - target: {fileID: 1816610143625341991, guid: 6a5ac92dd8bf55e20aeec5789f9ba4d2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1865282606203570932, guid: 6a5ac92dd8bf55e20aeec5789f9ba4d2, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -800
-      objectReference: {fileID: 0}
-    - target: {fileID: 1865282606203570932, guid: 6a5ac92dd8bf55e20aeec5789f9ba4d2, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 675
-      objectReference: {fileID: 0}
-    - target: {fileID: 1865282606203570932, guid: 6a5ac92dd8bf55e20aeec5789f9ba4d2, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6481701436691421893, guid: 6a5ac92dd8bf55e20aeec5789f9ba4d2, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1265,10 +1249,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6481701436691421893, guid: 6a5ac92dd8bf55e20aeec5789f9ba4d2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8325999243008416579, guid: 6a5ac92dd8bf55e20aeec5789f9ba4d2, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2146,7 +2126,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1184223680
 MonoBehaviour:
   m_ObjectHideFlags: 0
