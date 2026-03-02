@@ -36,13 +36,54 @@ public class DialogBoxUI : MonoBehaviour
     // Gibberish text characters list
     string gibberishChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?";
 
+    private AudioManager audioManager;
+
+    void Awake()
+    {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+    }
+    private void playSfx()
+    {
+        if(_currentDialog.Name == "Hand Of The King")
+        {
+            audioManager.SfxSource.PlayOneShot(audioManager.VoiceHandOfTheKing, 1f);
+        }
+        else if(_currentDialog.Name == "Executionner")
+        {
+            audioManager.SfxSource.PlayOneShot(audioManager.VoiceExecutionner, 1f);
+        }
+        else if (_currentDialog.Name == "Guard")
+        {
+            audioManager.SfxSource.PlayOneShot(audioManager.VoiceGuard, 1f);
+        }
+        else if (_currentDialog.Name == "King")
+        {
+            audioManager.SfxSource.PlayOneShot(audioManager.VoiceKing, 1f);
+        }
+        else if (_currentDialog.Name == "Prince")
+        {
+            audioManager.SfxSource.PlayOneShot(audioManager.VoicePrince, 1f);
+        }
+        else if (_currentDialog.Name == "Princess")
+        {
+            audioManager.SfxSource.PlayOneShot(audioManager.VoicePrincess, 1f);
+        }
+        else if (_currentDialog.Name == "Servant")
+        {
+            audioManager.SfxSource.PlayOneShot(audioManager.VoiceServant, 1f);
+        }
+        else if (_currentDialog.Name == "Fool")
+        {
+            audioManager.SfxSource.PlayOneShot(audioManager.VoiceFool, 1f);
+        }
+    }
+
     /// <summary>
     /// Prepare dialog panel visuals (name, portrait) without starting a text flow.
     /// </summary>
     public void ShowDialog(SO_DialogNPC dialog)
     {
         _currentDialog = dialog;
-
         if (dialogPanel != null)
             dialogPanel.SetActive(true);
 
@@ -57,6 +98,7 @@ public class DialogBoxUI : MonoBehaviour
             spriteChara.sprite = dialog.Portrait;
             spriteChara.gameObject.SetActive(dialog.Portrait != null);
         }
+
     }
 
     /// <summary>
@@ -132,12 +174,12 @@ public class DialogBoxUI : MonoBehaviour
     public IEnumerator ShowTextAndWaitForClick(string text)
     {
         dialogPanel.SetActive(true);
-
         currentFullText = text;
 
         if (typewriterCoroutine != null)
             StopCoroutine(typewriterCoroutine);
 
+        playSfx();
         typewriterCoroutine = StartCoroutine(TypewriterEffect(text));
 
         // Wait until typewriter finished
