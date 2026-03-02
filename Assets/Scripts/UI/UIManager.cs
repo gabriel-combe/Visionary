@@ -252,14 +252,11 @@ public class UIManager : SingletonMono<UIManager>
     public void ResetGame()
     {
         _currentEnvironmentIndex = 0;
-        UpdateCamera();
-        UpdateArrowVisibility();
+        OffsetEnvironmentIndex(0); // Ensure we are in the initial environment
+        ToggleOssicleView(true);
         _remainingdMainNPCEncounter = new List<NPCData>(_mainNPC);
         _card1 = null;
         _card2 = null;
-        _diceResult = -1;
-        _ossicleResult = -1;
-        _isInEncounter = false;
         _phase = 1;
         ResetEncounter();
     }

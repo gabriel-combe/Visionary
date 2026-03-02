@@ -14,6 +14,7 @@ public class CardDeck : MonoBehaviour
     [SerializeField] private int cardsPerDeck = 48;
 
     [SerializeField] private TextMeshProUGUI cardText;
+    [SerializeField] private TextMeshProUGUI cardTitle;
     [SerializeField] private GameObject cardPanel;
     [SerializeField] private float typewriterSpeed = 0.05f;
 
@@ -43,7 +44,7 @@ public class CardDeck : MonoBehaviour
     public IEnumerator DealCard(Card card)
     {
         currentFullText = card.text;
-        card.text = "";
+        cardText.text = "";
         transform.position = Vector3.zero;
         List<GameObject> cardList = new List<GameObject>(); 
         for(int i = 0; i < cardsPerDeck; i++)
@@ -137,6 +138,7 @@ public class CardDeck : MonoBehaviour
         if (typewriterCoroutine != null)
             StopCoroutine(typewriterCoroutine);
 
+        cardTitle.text = card.name;
         typewriterCoroutine = StartCoroutine(TypewriterEffect(card.text));
 
         yield return new WaitUntil(() => !isTyping);
