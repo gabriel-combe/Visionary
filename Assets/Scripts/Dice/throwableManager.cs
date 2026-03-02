@@ -28,6 +28,13 @@ public class throwableManager : MonoBehaviour
     public static event Action<int> ossicleThrowFinished;
     public static event Action<int> diceThrowFinished;
 
+    private AudioManager audioManager;
+
+    void Awake()
+    {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+    }
+
     IEnumerator WaitForOssiclesSolvedThrow()
     {
         float startTime = Time.time;
@@ -147,6 +154,7 @@ public class throwableManager : MonoBehaviour
     [ContextMenu("Throw Dice")] 
     public void ThrowDice()
     {
+        audioManager.SfxSource.PlayOneShot(audioManager.SfxDice, 1.5f);
         StartCoroutine(DiceAnim());
     }
 }

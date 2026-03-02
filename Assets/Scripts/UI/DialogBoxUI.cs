@@ -42,13 +42,14 @@ public class DialogBoxUI : MonoBehaviour
     {
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
+
     private void playSfx()
     {
-        if(_currentDialog.Name == "Hand Of The King")
+        if (_currentDialog.Name == "Hand Of The King")
         {
             audioManager.SfxSource.PlayOneShot(audioManager.VoiceHandOfTheKing, 1f);
         }
-        else if(_currentDialog.Name == "Executionner")
+        else if (_currentDialog.Name == "Executionner")
         {
             audioManager.SfxSource.PlayOneShot(audioManager.VoiceExecutionner, 1f);
         }
@@ -176,6 +177,8 @@ public class DialogBoxUI : MonoBehaviour
         dialogPanel.SetActive(true);
         currentFullText = text;
 
+        playSfx();
+
         if (typewriterCoroutine != null)
             StopCoroutine(typewriterCoroutine);
 
@@ -184,6 +187,8 @@ public class DialogBoxUI : MonoBehaviour
 
         // Wait until typewriter finished
         yield return new WaitUntil(() => !isTyping);
+
+        audioManager.SfxSource.Stop();
 
         // Now wait for a click to proceed
         _awaitingClick = true;

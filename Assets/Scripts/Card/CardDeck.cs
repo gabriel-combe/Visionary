@@ -26,6 +26,13 @@ public class CardDeck : MonoBehaviour
     private Coroutine typewriterCoroutine;
     private string currentFullText = "";
 
+    private AudioManager audioManager;
+
+    void Awake()
+    {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+    }
+
     private void fisherYates(List<int> array)
     {
         System.Random rng = new System.Random();
@@ -79,6 +86,7 @@ public class CardDeck : MonoBehaviour
 
         for(int k = 0; k < 4; k++)
         {
+            audioManager.SfxSource.PlayOneShot(audioManager.SfxCards[k%3], 1.0f);
             List<int> newids = new List<int>();
             for(int i = 0; i < cardsPerDeck; i++)
             {
