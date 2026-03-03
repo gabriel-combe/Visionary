@@ -32,9 +32,10 @@ public class DialogBoxUI : MonoBehaviour
     // Choice result
     private int _selectedChoice = -1;
     public int LastSelectedChoice => _selectedChoice;
+    public GameObject ChoicesContainer => choicesContainer;
 
     // Gibberish text characters list
-    string gibberishChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?";
+    //string gibberishChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?";
 
     private AudioManager audioManager;
 
@@ -134,20 +135,6 @@ public class DialogBoxUI : MonoBehaviour
 
         foreach (char c in text)
         {
-            if (c == '$')
-            {
-                // Now wait for a click to proceed
-                Debug.Log("Waiting for click to proceed to next segment...");
-                _awaitingClick = true;
-                _clickReceived = false;
-                yield return new WaitUntil(() => _clickReceived);
-                Debug.Log("Click received, proceeding to next segment");
-                _awaitingClick = false;
-                _clickReceived = false;
-                dialogText.text = ""; // Clear text for next segment
-                continue; // Skip adding this character to the text
-            }
-
             if (c == '/' && !italicOpen)
             {
                 dialogText.text += "<i>";
@@ -175,27 +162,30 @@ public class DialogBoxUI : MonoBehaviour
     public IEnumerator ShowTextAndWaitForClick(string text)
     {
         dialogPanel.SetActive(true);
-        currentFullText = text;
 
-        playSfx();
+        List<string> segments = new List<string>(text.Split('$')); // Split text into segments by '$'
 
-        if (typewriterCoroutine != null)
-            StopCoroutine(typewriterCoroutine);
+        foreach (string segment in segments)
+        {
+            currentFullText = segment;
+            playSfx();
 
-        playSfx();
-        typewriterCoroutine = StartCoroutine(TypewriterEffect(text));
+            if (typewriterCoroutine != null)
+                StopCoroutine(typewriterCoroutine);
 
-        // Wait until typewriter finished
-        yield return new WaitUntil(() => !isTyping);
+            typewriterCoroutine = StartCoroutine(TypewriterEffect(segment));
 
-        audioManager.SfxSource.Stop();
+            // Wait until typewriter finished
+            yield return new WaitUntil(() => !isTyping);
+            audioManager.SfxSource.Stop();
 
-        // Now wait for a click to proceed
-        _awaitingClick = true;
-        _clickReceived = false;
-        yield return new WaitUntil(() => _clickReceived);
-        _awaitingClick = false;
-        _clickReceived = false;
+            // Now wait for a click to proceed
+            _awaitingClick = true;
+            _clickReceived = false;
+            yield return new WaitUntil(() => _clickReceived);
+            _awaitingClick = false;
+            _clickReceived = false;
+        }
     }
 
     /// <summary>

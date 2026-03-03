@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 377d81b95280100419232c2d7bed21d5, type: 3}
+  m_Name: TheChariotCard
+  m_EditorClassIdentifier: Assembly-CSharp::Card
+  Name: The Chariot
+  text: "The card hums with steady, unyielding energy, the wheels of destiny ready
+    to roll forward.  $Its power is controlled, disciplined, yet charged with hidden
+    desire.  $You sense the Garde\u2019s heart within it\u2014loyal, steadfast, and
+    bound by duty, yet driven by a love he cannot openly show.  $His eyes, fixed
+    on the princess beneath the balcony, betray the truth of his devotion.  $The
+    Chariot carries him forward, and now, through you, his secret may finally find
+    its course."
+  sprite: {fileID: 21300000, guid: 38ff51468812948ab925e10c160528ff, type: 3}

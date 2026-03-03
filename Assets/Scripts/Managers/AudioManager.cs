@@ -21,6 +21,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public AudioClip _sfxMenu;
     [SerializeField] public List<AudioClip> _sfxCards;
     [SerializeField] public AudioClip _sfxDice;
+    [SerializeField] public AudioClip _sfxOssicle;
 
     [Header("Voices")]
     [SerializeField] public AudioClip _voiceHandOfTheKing;
@@ -62,29 +63,25 @@ public class AudioManager : MonoBehaviour
         UIManager.onEnvironmentChange += ChangeMusicEnv;
         UIManager.onOssicleChange += ChangeMusicOss;
     }
+
     public void ChangeMusicOss(bool id)
     {
-        if(id)
+        if (id)
         {
+            StopAllCoroutines();
             StartCoroutine(FadeInOut(_menuMusic));
         }
     }
 
     public void ChangeMusicEnv(int id)
     {
-        Debug.Log("PIPIIII");
+        StopAllCoroutines();
         if (id == 0)
-        {
             StartCoroutine(FadeInOut(_menuThrone));
-        }
         else if (id == 2)
-        {
             StartCoroutine(FadeInOut(_menuTorture));
-        }
         else if(id == 3 || id  == 1)
-        {
             StartCoroutine(FadeInOut(_menuGarden));
-        }
     }
 
     private IEnumerator FadeInOut(AudioClip clip)

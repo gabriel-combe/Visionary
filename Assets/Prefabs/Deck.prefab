@@ -88,7 +88,6 @@ GameObject:
   - component: {fileID: 5628416674948066069}
   - component: {fileID: 5741808200715654305}
   - component: {fileID: 3823686694626557520}
-  - component: {fileID: 904453984016779097}
   m_Layer: 5
   m_Name: CardPanel
   m_TagString: Untagged
@@ -180,30 +179,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &904453984016779097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1955060493761008641}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1761c34128600ced7a425e71899fdf38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  poemText: {fileID: 4307999308995701261}
-  poemPanel: {fileID: 1955060493761008641}
-  typewriterSpeed: 0.05
-  poemA: Lorem ipsum dolor sit #amet# consectetur adipiscing elit. Consectetur #adipiscing#
-    elit quisque faucibus ex sapien vitae. Ex #sapien vitae pellentesque# sem placerat
-    in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis
-    tempus leo eu aenean.
-  poemB: ' #Lorem ipsum# dolor sit amet consectetur adipiscing elit. Consectetur
-    #adipiscing elit quisque faucibus ex sapien# vitae. Ex sapien vitae pellentesque
-    sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus
-    duis convallis tempus leo eu aenean.'
-  poemC: 
 --- !u!1 &2258159508665719260
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,7 +303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardDeck
   cardPrefab: {fileID: 1406463446643520686, guid: 3ac6dd6dc48c0c06d95066cd995ea083, type: 3}
   cameraTransform: {fileID: 0}
-  deckHeight: 0.02
+  deckHeight: 1
   cardsPerDeck: 48
   cardText: {fileID: 4307999308995701261}
   cardTitle: {fileID: 2489979677177835121}
@@ -368,8 +343,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 70, y: -70}
-  m_SizeDelta: {x: -140, y: -140}
+  m_AnchoredPosition: {x: 80, y: -80}
+  m_SizeDelta: {x: -160, y: -160}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &6228177289067639148
 CanvasRenderer:
@@ -401,8 +376,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Card Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f239e167d7592844899cc6ef5fe7b2c7, type: 2}
+  m_sharedMaterial: {fileID: -8010186979296710789, guid: f239e167d7592844899cc6ef5fe7b2c7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -538,8 +513,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Card Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f239e167d7592844899cc6ef5fe7b2c7, type: 2}
+  m_sharedMaterial: {fileID: -8010186979296710789, guid: f239e167d7592844899cc6ef5fe7b2c7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

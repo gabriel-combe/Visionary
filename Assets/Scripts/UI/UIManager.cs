@@ -1,10 +1,11 @@
+using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
-using DG.Tweening;
 using static SO_DialogNPC;
-using System;
 
 /// <summary>
 /// Manages all UI panels and navigation.
@@ -12,11 +13,17 @@ using System;
 /// </summary>
 public class UIManager : SingletonMono<UIManager>
 {
+    [Header("Cursor")]
+    [SerializeField] private Texture2D defaultCursor;
+    [SerializeField] private Vector2 hotspot = Vector2.zero;
+
     [Header("UI Panels")]
     [SerializeField] private GameObject _startMenu;
+    [SerializeField] private GameObject _debutText;
+    [SerializeField] private GameObject _endMenu;
     //[SerializeField] private PauseMenuUI _pauseMenu;
     [SerializeField] private DialogBoxUI _dialogBox;
-    //[SerializeField] private EndingUI _endingUI;
+    [SerializeField] private GameObject _transitionScreen;
 
     [Header("Camera")]
     [SerializeField] private Camera _mainCamera;
@@ -30,9 +37,9 @@ public class UIManager : SingletonMono<UIManager>
     [SerializeField] private Button _leftArrow;
 
     [Header("Manager")]
-    [SerializeField] private throwableManager throwManager;
-    [SerializeField] private PoemUi poemManager;
-    [SerializeField] private CardDeck cardDeckManager;
+    [SerializeField] private throwableManager _throwManager;
+    [SerializeField] private PoemUi _poemManager;
+    [SerializeField] private CardDeck _cardDeckManager;
 
     [Header("Dialog Data")]
     [SerializeField] private NPCData _handOfTheKingData;
@@ -50,6 +57,7 @@ public class UIManager : SingletonMono<UIManager>
     }
     [Header("Card Associations")]
     [SerializeField] private List<CardAssociation> _cardAssociations;
+    [SerializeField] private List<NPCData> _lovers;
 
     // logic state
     private bool _isInEncounter = false;
@@ -62,6 +70,9 @@ public class UIManager : SingletonMono<UIManager>
     private List<NPCData> _remainingdMainNPCEncounter;
     private Card _card1 = null;
     private Card _card2 = null;
+    private Card _endingCard = null;
+    private bool _endingShown = false;
+
 
     // UI state
     private Tween _cameraTweenMove;
@@ -75,6 +86,15 @@ public class UIManager : SingletonMono<UIManager>
 
     public int CurrentEnvironmentIndex => _currentEnvironmentIndex;
     public bool OssicleView => _ossicleView;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        Cursor.SetCursor(defaultCursor, hotspot, CursorMode.Auto);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
 
     private void Start()
     {
@@ -174,6 +194,19 @@ public class UIManager : SingletonMono<UIManager>
     }
 
     /// <summary>
+    /// Show end menu
+    /// </summary>
+    public void ShowEndMenu()
+    {
+        HideAllPanels();
+        if (_endMenu != null)
+        {
+            _endMenu.SetActive(true);
+            Tween fadeIn = _endMenu.GetComponent<CanvasGroup>().DOFade(1f, 0.5f).From(0f);
+        }
+    }
+
+    /// <summary>
     /// Show pause menu
     /// </summary>
     //public void ShowPauseMenu()
@@ -239,10 +272,10 @@ public class UIManager : SingletonMono<UIManager>
     /// </summary>
     public void HideAllPanels()
     {
-        //if (startMenu != null) startMenu.gameObject.SetActive(false);
+        if (_startMenu != null) _startMenu.gameObject.SetActive(false);
+        if (_endMenu != null) _endMenu.gameObject.SetActive(false);
         //if (pauseMenu != null) pauseMenu.gameObject.SetActive(false);
         if (_dialogBox != null) _dialogBox.HideDialog();
-        //if (endingUI != null) endingUI.gameObject.SetActive(false);
     }
     #endregion
 
@@ -252,13 +285,16 @@ public class UIManager : SingletonMono<UIManager>
     public void ResetGame()
     {
         _currentEnvironmentIndex = 0;
-        OffsetEnvironmentIndex(0); // Ensure we are in the initial environment
-        ToggleOssicleView(true);
+        onOssicleChange?.Invoke(_ossicleView);
+        Debug.Log($"On Ossicle table? -> {_ossicleView}");
         _remainingdMainNPCEncounter = new List<NPCData>(_mainNPC);
         _card1 = null;
         _card2 = null;
+        _endingCard = null;
         _phase = 1;
+        _endingShown = false;
         ResetEncounter();
+        _poemManager.ResetPoems();
     }
 
     public void ResetEncounter()
@@ -271,6 +307,18 @@ public class UIManager : SingletonMono<UIManager>
             npc.ResetEncounters();
     }
 
+    public int endingDetermination(NPCData npcData)
+    {
+        if (_endingCard == null) return -1;
+
+        if (_endingCard.Name == "Judgment") return 1;
+
+        if (_endingCard.Name == "The Lovers" && _lovers.Contains(npcData)) return 1;
+
+        return 0;
+
+    }
+
     /// <summary>
     /// Toggle the camera view to focus on the ossicle throwing area. When toggle is true, transition to close view; when false, transition back to normal view.
     /// </summary>
@@ -279,9 +327,15 @@ public class UIManager : SingletonMono<UIManager>
     IEnumerator ToggleOssicleView(bool toggle)
     {
         _ossicleView = toggle;
-        ToggleArrow(!toggle);
+        if (toggle)
+            ToggleArrow(!toggle);
         onOssicleChange?.Invoke(_ossicleView);
+        Debug.Log($"On Ossicle table? -> {_ossicleView}");
+
         // transition camera to ossicle view close
+        _transitionScreen.SetActive(true);
+        Tween fadeOut = _transitionScreen.GetComponent<CanvasGroup>().DOFade(1f, 0.5f).From(0f);
+        yield return fadeOut.WaitForCompletion();
 
         _cameraTweenMove?.Kill();
         _cameraTweenRotate?.Kill();
@@ -293,7 +347,12 @@ public class UIManager : SingletonMono<UIManager>
         yield return _cameraTweenRotate.WaitForCompletion();
 
         // transition camera back to normal view open
+        Tween fadeIn = _transitionScreen.GetComponent<CanvasGroup>().DOFade(0f, 0.5f).From(1f);
+        yield return fadeIn.WaitForCompletion();
+        _transitionScreen.SetActive(false);
 
+        if (!toggle)
+            ToggleArrow(!toggle);
         yield break;
     }
 
@@ -301,6 +360,9 @@ public class UIManager : SingletonMono<UIManager>
     {
         // Show start menu and wait for player to click "Start"
         // For simplicity, we just wait for 2 seconds here
+        ShowStartMenu();
+        //yield return StartCoroutine(ToggleOssicleView(true));
+
         _awaitingClick = true;
         _clickReceived = false;
         yield return new WaitUntil(() => _clickReceived);
@@ -310,6 +372,24 @@ public class UIManager : SingletonMono<UIManager>
         Tween fadeIn = _startMenu.GetComponent<CanvasGroup>().DOFade(0, 0.5f).From(1f);
 
         yield return fadeIn.WaitForCompletion();
+        _startMenu.SetActive(false);
+    }
+
+    IEnumerator DebutText()
+    {
+        _debutText.SetActive(true);
+        _debutText.GetComponent<CanvasGroup>().alpha = 1f;
+
+        _awaitingClick = true;
+        _clickReceived = false;
+        yield return new WaitUntil(() => _clickReceived);
+        _awaitingClick = false;
+        _clickReceived = false;
+
+        Tween fadeOut = _debutText.GetComponent<CanvasGroup>().DOFade(0, 0.5f).From(1f);
+
+        yield return fadeOut.WaitForCompletion();
+        _debutText.SetActive(false);
     }
 
     IEnumerator ThrowOssicle(int phase)
@@ -317,33 +397,45 @@ public class UIManager : SingletonMono<UIManager>
         // Show throw UI and wait for player to throw the ossicle
         // For simplicity, we just wait for 2 seconds here
         yield return new WaitForSeconds(0.5f);
-        throwManager.ThrowOssicles();
+        _throwManager.ThrowOssicles();
         yield return new WaitUntil(() => _ossicleResult >= 0);
         yield return new WaitForSeconds(0.5f);
-        poemManager.ShowPoem();
+        _poemManager.ShowPoem();
         if (phase == 1)
-            yield return StartCoroutine(poemManager.ShowPoemAAndWaitForClick(_ossicleResult));
+            yield return StartCoroutine(_poemManager.ShowPoemAAndWaitForClick(_ossicleResult));
         else if (phase == 2)
-            yield return StartCoroutine(poemManager.ShowPoemBAndWaitForClick(_ossicleResult));
+            yield return StartCoroutine(_poemManager.ShowPoemBAndWaitForClick(_ossicleResult));
         else if (phase == 3)
-            yield return StartCoroutine(poemManager.ShowPoemCAndWaitForClick(_ossicleResult));
-        poemManager.HidePoem();
-        throwManager.ClearBoard(); // Clear thrown ossicles from the board
+            yield return StartCoroutine(_poemManager.ShowPoemCAndWaitForClick(_ossicleResult));
+        _poemManager.HidePoem();
+        _throwManager.ClearBoard(); // Clear thrown ossicles from the board
     }
 
     IEnumerator DeckAnimation(Card card)
     {
         // Show deck animation and wait for it to finish
         // For simplicity, we just wait for 2 seconds here
-        yield return StartCoroutine(cardDeckManager.DealCard(card));
+        yield return StartCoroutine(_cardDeckManager.DealCard(card));
         yield return new WaitForSeconds(1f);
     }
 
-    IEnumerator EndGame(Card card1, Card card2)
+    Card FindEnding(Card card1, Card card2)
     {
-        // Show ending based on the two cards and wait for player to click "Restart"
-        // For simplicity, we just wait for 2 seconds here
-        yield return new WaitForSeconds(2f);
+        // Determine the ending based on the combination of card1 and card2
+        foreach (var association in _cardAssociations)
+        {
+            if ((association.card1 == card1 && association.card2 == card2) || (association.card1 == card2 && association.card2 == card1))
+            {
+                // Show the ending associated with this combination
+                // For simplicity, we just log the ending here
+                Debug.Log($"Ending triggered: {association.cardEnding.Name}");
+                return association.cardEnding;
+            }
+        }
+
+        // If no specific combination is found, return a default ending
+        Debug.Log("No specific ending for this combination. Showing default ending.");
+        return _cardAssociations[^1].cardEnding;
     }
 
     /// <summary>
@@ -354,9 +446,9 @@ public class UIManager : SingletonMono<UIManager>
     IEnumerator MainSequence()
     {
         // Start Menu
-        ToggleArrow(false);
-        yield return StartCoroutine(ToggleOssicleView(true));
+        ResetGame();
         yield return StartCoroutine(StartMenu()); // Show start menu and wait for player to start the game
+        yield return StartCoroutine(DebutText());
 
         // Phase 1
         _phase = 1;
@@ -384,6 +476,7 @@ public class UIManager : SingletonMono<UIManager>
         yield return StartCoroutine(SequenceDialog(_handOfTheKingData)); // Start the dialog sequence again with the Hand of the King NPC
         _enableInteraction = true;
         yield return new WaitUntil(() => _card2 != null && !_isInEncounter); // Wait until the second card is set (this would be done in the environment where the player can speak with NPCs)
+        _endingCard = FindEnding(_card1, _card2); // Determine the ending based on the combination of the two cards obtained from NPC interactions
         yield return StartCoroutine(ToggleOssicleView(true));
         yield return StartCoroutine(DeckAnimation(_card2)); // Show deck animation for the second card and wait for it to finish
         ResetEncounter();
@@ -395,14 +488,11 @@ public class UIManager : SingletonMono<UIManager>
         yield return StartCoroutine(ToggleOssicleView(false));
         _currentEnvironmentIndex = 0;
         OffsetEnvironmentIndex(0); // Ensure we are in the initial environment
-        yield return StartCoroutine(EndGame(_card1, _card2)); // Start the end of the game based on the combination of the two cards
         _enableInteraction = true;
-
-        // Wait before reseting the game and starting over
-        Debug.Log("Game ended. Restarting...");
-        yield return new WaitForSeconds(2f);
-        ResetGame();
-        ShowStartMenu();
+        yield return new WaitUntil(() => _endingShown && !_isInEncounter); // Wait until the ending has been shown (this would be done in the environment where the player can speak with NPCs and trigger the ending)
+        yield return StartCoroutine(ToggleOssicleView(true));
+        yield return StartCoroutine(DeckAnimation(_endingCard));
+        _endMenu.SetActive(true);
     }
 
     /*
@@ -433,6 +523,8 @@ public class UIManager : SingletonMono<UIManager>
         _isInEncounter = true;
         _diceResult = -1;
 
+        ToggleArrow(false); // Hide arrows during dialog
+
         var dialog = npcData.DialogData;
 
         var path = dialog.DialogPaths[_blackListChoice.Contains(npcData) ? 0 : _phase-1];
@@ -450,6 +542,8 @@ public class UIManager : SingletonMono<UIManager>
             }
         }
 
+        isChoice = isChoice && !(_blackListChoice.Contains(npcData) && _card1 == npcData.DialogData.Cards[0]);
+
         // Prepare dialog visuals (name, portrait)
         ShowDialog(dialog);
 
@@ -461,12 +555,20 @@ public class UIManager : SingletonMono<UIManager>
         Debug.Log($"Current phase: {_phase}");
         if (npcData.HasEncountered || !isChoice || _phase == 3)
         {
-            yield return StartCoroutine(_dialogBox.ShowTextAndWaitForClick(defaultPath.entries[UnityEngine.Random.Range(0, defaultPath.entries.Count)].npcText));
+            if (_endingCard != null && _mainNPC.Contains(npcData))
+                yield return StartCoroutine(_dialogBox.ShowTextAndWaitForClick(defaultPath.entries[endingDetermination(npcData)].npcText));
+            else
+                yield return StartCoroutine(_dialogBox.ShowTextAndWaitForClick(defaultPath.entries[UnityEngine.Random.Range(0, defaultPath.entries.Count)].npcText));
+
+            if (npcData == _handOfTheKingData && _phase == 3)
+                _endingShown = true;
 
             // Finally hide dialog
             HideDialog();
 
             _isInEncounter = false;
+            ToggleArrow(true); // Show arrows again after dialog
+            UpdateArrowVisibility();
             yield break;
         }
         else
@@ -475,11 +577,14 @@ public class UIManager : SingletonMono<UIManager>
             yield return StartCoroutine(_dialogBox.ShowTextAndWaitForClick(path.entries[0].npcText));
         }
 
+
+        _dialogBox.ChoicesContainer.SetActive(true);
         // Roll a d20 to decide how many among the N choices will be revealed (map 1..20 -> 1..N)
-        throwManager.ThrowDice();
+        _throwManager.ThrowDice();
         yield return new WaitUntil(() => _diceResult >= 0);
         int revealCount = Mathf.Clamp(Mathf.CeilToInt(_diceResult / 4f), 1, playerChoices.Count);
         Debug.Log($"Rolled a {_diceResult} to reveal {revealCount} choices.");
+        _dialogBox.ChoicesContainer.SetActive(false);
 
         var revealedChoices = new List<(DialogEntry, bool, int)>();
         for (int i = 0; i < playerChoices.Count; i++)
@@ -516,7 +621,7 @@ public class UIManager : SingletonMono<UIManager>
             if (_phase == 1)
                 _card1 = npcData.DialogData.Cards[0];
             else if (_phase == 2)
-                _card2 = npcData.DialogData.Cards[npcData.DialogData.Cards.Count-1];
+                _card2 = npcData.DialogData.Cards[^1];
         }
 
         // Show NPC response for the chosen line and wait for click to hide
@@ -526,7 +631,17 @@ public class UIManager : SingletonMono<UIManager>
         HideDialog();
         _dialogBox.ClearChoices();
 
+        if ((_card1 != null || _card2 != null) && _remainingdMainNPCEncounter != null && _remainingdMainNPCEncounter.Count == 0)
+        {
+            if (_phase == 1)
+                _card1 = _wheelOfFortune;
+            else if (_phase == 2)
+                _card2 = _wheelOfFortuneReversed;
+        }
+
         _isInEncounter = false;
+        ToggleArrow(true); // Show arrows again after dialog
+        UpdateArrowVisibility();
     }
 
     private void Update()
@@ -571,6 +686,32 @@ public class UIManager : SingletonMono<UIManager>
     {
         Debug.Log($"Received ossicle throw result: {result}");
         _ossicleResult = result;
+    }
+
+    private void OnDestroy()
+    {
+        // Unsubscribe from events to prevent memory leaks
+        throwableManager.diceThrowFinished -= OnDiceThrowFinished;
+        throwableManager.ossicleThrowFinished -= OnOssicleThrowFinished;
+        _upArrow.onClick.RemoveListener(OnUpArrowClicked);
+        _rightArrow.onClick.RemoveListener(OnRightArrowClicked);
+        _downArrow.onClick.RemoveListener(OnDownArrowClicked);
+        _leftArrow.onClick.RemoveListener(OnLeftArrowClicked);
+    }
+
+    public void ApplicationQuit()
+    {
+        // Ensure all tweens are killed when the application quits to prevent errors
+        _cameraTweenMove?.Kill();
+        _cameraTweenRotate?.Kill();
+
+        Application.Quit();
+    }
+
+    public void StartGame()
+    {
+        // Start the main sequence of the game
+        StartCoroutine(MainSequence());
     }
 }
 

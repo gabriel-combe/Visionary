@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 377d81b95280100419232c2d7bed21d5, type: 3}
+  m_Name: DeathPrincessCardEnding
+  m_EditorClassIdentifier: Assembly-CSharp::Card
+  Name: Death
+  text: "The card falls heavy in your hand, a dark mirror of inevitability.  $You
+    failed to produce the visions the king demanded. Your gift, once a spark of hope,
+    is now deemed a failure.  $As the wedding unfolds, you are brought forward, not
+    as a guest, but as a spectacle. Fire consumes you, the smoke rising through the
+    halls of the palace, a grim warning to all who dare defy the king\u2019s will.
+    $The Princess watches in silence, horrified. She knows that sooner or later,
+    it will be her turn, trapped again with her cruel, unfeeling husband. Every scream,
+    every crackling flame, is a promise of the nightmare to come."
+  sprite: {fileID: 21300000, guid: 5f140a438836405d9bb7eb7e7be325a0, type: 3}

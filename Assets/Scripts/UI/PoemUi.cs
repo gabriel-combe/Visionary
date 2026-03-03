@@ -121,6 +121,12 @@ public class PoemUi : MonoBehaviour
             poemPanel.SetActive(false);
     }
 
+    public void ResetPoems()
+    {
+        poemText.text = "";
+        currentFullText = "";
+    }
+
     private IEnumerator TypewriterEffect(string text)
     {
         isTyping = true;
