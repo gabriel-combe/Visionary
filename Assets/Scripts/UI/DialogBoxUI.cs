@@ -3,104 +3,73 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using static SO_DialogNPC;
 
 /// <summary>
 /// Dialog box UI with typewriter effect, choice buttons and controlled progression.
 /// </summary>
 public class DialogBoxUI : MonoBehaviour
 {
+    [SerializeField] private TypewriterRunner _typewriter;
     [SerializeField] private TextMeshProUGUI dialogText;
     [SerializeField] private TextMeshProUGUI speakerNameText;
     [SerializeField] private Image spriteChara;
     [SerializeField] private GameObject dialogPanel;
-    [SerializeField] private float typewriterSpeed = 0.05f;
 
     // Choice UI
-    [SerializeField] private GameObject choicesContainer; // parent for buttons
-    [SerializeField] private Button choiceButtonPrefab; // prefab containing Button + TextMeshProUGUI
+    [SerializeField] private GameObject choicesContainer;
+    [SerializeField] private Button choiceButtonPrefab;
 
-    private bool isTyping = false;
-    private Coroutine typewriterCoroutine;
-    private string currentFullText = "";
-    private SO_DialogNPC _currentDialog;
-
-    // Interaction control
-    private bool _awaitingClick = false;
-    private bool _clickReceived = false;
+    private Speaker _currentSpeaker;
 
     // Choice result
     private int _selectedChoice = -1;
     public int LastSelectedChoice => _selectedChoice;
     public GameObject ChoicesContainer => choicesContainer;
 
-    // Gibberish text characters list
-    //string gibberishChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?!@#$%^&*()_+-=[]{}|;':\",./<>?";
-
-    private AudioManager audioManager;
-
-    void Awake()
-    {
-        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
-    }
-
+    #region Speaker SFX
     private void playSfx()
     {
-        if (_currentDialog.Name == "Hand Of The King")
-        {
-            audioManager.SfxSource.PlayOneShot(audioManager.VoiceHandOfTheKing, 1f);
-        }
-        else if (_currentDialog.Name == "Executionner")
-        {
-            audioManager.SfxSource.PlayOneShot(audioManager.VoiceExecutionner, 1f);
-        }
-        else if (_currentDialog.Name == "Guard")
-        {
-            audioManager.SfxSource.PlayOneShot(audioManager.VoiceGuard, 1f);
-        }
-        else if (_currentDialog.Name == "King")
-        {
-            audioManager.SfxSource.PlayOneShot(audioManager.VoiceKing, 1f);
-        }
-        else if (_currentDialog.Name == "Prince")
-        {
-            audioManager.SfxSource.PlayOneShot(audioManager.VoicePrince, 1f);
-        }
-        else if (_currentDialog.Name == "Princess")
-        {
-            audioManager.SfxSource.PlayOneShot(audioManager.VoicePrincess, 1f);
-        }
-        else if (_currentDialog.Name == "Servant")
-        {
-            audioManager.SfxSource.PlayOneShot(audioManager.VoiceServant, 1f);
-        }
-        else if (_currentDialog.Name == "Fool")
-        {
-            audioManager.SfxSource.PlayOneShot(audioManager.VoiceFool, 1f);
-        }
+        if (_currentSpeaker == null) return;
+        var clip = _currentSpeaker.VoiceClip;
+        if (clip != null) AudioManager.Instance.SfxSource.PlayOneShot(clip, 1f);
+    }
+    #endregion
+
+    #region Panel Control
+    /// <summary>
+    /// Open the dialog panel without setting any speaker yet.
+    /// Called once at the start of a conversation.
+    /// </summary>
+    public void OpenDialog()
+    {
+        if (dialogPanel != null) dialogPanel.SetActive(true);
     }
 
     /// <summary>
-    /// Prepare dialog panel visuals (name, portrait) without starting a text flow.
+    /// Update the speaker portrait and name for the current node.
+    /// Called by DialogRunner at each node transition.
     /// </summary>
-    public void ShowDialog(SO_DialogNPC dialog)
+    public void SetSpeaker(Speaker speaker, SpeakerSide side = SpeakerSide.Left)
     {
-        _currentDialog = dialog;
-        if (dialogPanel != null)
-            dialogPanel.SetActive(true);
+        _currentSpeaker = speaker;
+        if (speaker == null) return;
 
         if (speakerNameText != null)
         {
-            speakerNameText.text = dialog.Name;
-            speakerNameText.gameObject.SetActive(!string.IsNullOrEmpty(dialog.Name));
+            speakerNameText.text = speaker.NpcId;
+            speakerNameText.gameObject.SetActive(!string.IsNullOrEmpty(speaker.NpcId));
         }
 
         if (spriteChara != null)
         {
-            spriteChara.sprite = dialog.Portrait;
-            spriteChara.gameObject.SetActive(dialog.Portrait != null);
-        }
+            spriteChara.sprite = speaker.Portrait;
+            spriteChara.gameObject.SetActive(speaker.Portrait != null);
 
+            // Flip portrait horizontally when speaker is on the right
+            var scale = spriteChara.rectTransform.localScale;
+            scale.x = side == SpeakerSide.Right ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
+            spriteChara.rectTransform.localScale = scale;
+        }
     }
 
     /// <summary>
@@ -108,97 +77,38 @@ public class DialogBoxUI : MonoBehaviour
     /// </summary>
     public void HideDialog()
     {
-        if (typewriterCoroutine != null)
-        {
-            StopCoroutine(typewriterCoroutine);
-            typewriterCoroutine = null;
-        }
-
-        isTyping = false;
-        _awaitingClick = false;
-        _clickReceived = false;
-
-        if (dialogPanel != null)
-            dialogPanel.SetActive(false);
-
+        _typewriter.Stop();
+        if (dialogPanel != null) dialogPanel.SetActive(false);
         ClearChoices();
     }
+    #endregion
 
+    #region Text
     /// <summary>
-    /// Typewriter coroutine to display text letter by letter
-    /// </summary>
-    private IEnumerator TypewriterEffect(string text)
-    {
-        isTyping = true;
-        dialogText.text = "";
-        bool italicOpen = false;
-
-        foreach (char c in text)
-        {
-            if (c == '/' && !italicOpen)
-            {
-                dialogText.text += "<i>";
-                continue;
-            }
-            else if (c == '/')
-            {
-                dialogText.text += "</i>";
-                continue;
-            }
-            
-            dialogText.text += c;
-            yield return new WaitForSeconds(typewriterSpeed);
-        }
-
-        isTyping = false;
-        italicOpen = false;
-        typewriterCoroutine = null;
-    }
-
-    /// <summary>
-    /// Show a single text line with typewriter and wait until the player clicks to continue.
-    /// This will return only after the player has clicked (skip handled).
+    /// Show text with typewriter, paginated by '$', with voice SFX per segment.
     /// </summary>
     public IEnumerator ShowTextAndWaitForClick(string text)
     {
         dialogPanel.SetActive(true);
 
-        List<string> segments = new List<string>(text.Split('$')); // Split text into segments by '$'
-
-        foreach (string segment in segments)
-        {
-            currentFullText = segment;
-            playSfx();
-
-            if (typewriterCoroutine != null)
-                StopCoroutine(typewriterCoroutine);
-
-            typewriterCoroutine = StartCoroutine(TypewriterEffect(segment));
-
-            // Wait until typewriter finished
-            yield return new WaitUntil(() => !isTyping);
-            audioManager.SfxSource.Stop();
-
-            // Now wait for a click to proceed
-            _awaitingClick = true;
-            _clickReceived = false;
-            yield return new WaitUntil(() => _clickReceived);
-            _awaitingClick = false;
-            _clickReceived = false;
-        }
+        yield return StartCoroutine(_typewriter.PlayAndWait(
+            dialogText,
+            text,
+            '$',
+            onSegmentStart: () => playSfx(),
+            onSegmentEnd: () => AudioManager.Instance.SfxSource.Stop()
+        ));
     }
+    #endregion
 
+    #region Choices
     /// <summary>
-    /// Show a set of choice strings (buttons) and wait until the player selects one.
+    /// Show a set of choice buttons and wait until the player selects one.
     /// The chosen index will be available in LastSelectedChoice.
     /// </summary>
-    public IEnumerator ShowChoicesAndWait(List<(DialogEntry, bool, int)> options)
+    public IEnumerator ShowChoicesAndWait(List<(PlayerChoice choice, bool revealed)> options)
     {
-        if (choicesContainer == null || choiceButtonPrefab == null)
-        {
-            Debug.LogWarning("Choices UI not configured.");
-            yield break;
-        }
+        if (choicesContainer == null || choiceButtonPrefab == null) yield break;
 
         ClearChoices();
         _selectedChoice = -1;
@@ -207,83 +117,35 @@ public class DialogBoxUI : MonoBehaviour
         {
             var btnObj = Instantiate(choiceButtonPrefab, choicesContainer.transform);
             btnObj.gameObject.SetActive(true);
-            var text = btnObj.GetComponentInChildren<TextMeshProUGUI>();
-            text.richText = true; // Enable rich text for italics
+            var tmp = btnObj.GetComponentInChildren<TextMeshProUGUI>();
+            tmp.richText = true;
+            tmp.text = options[i].revealed ? options[i].choice.playerText : "???";
 
-            text.text = "???"; // Start with empty text
-            //for (int j = 0; j < 30; j++)
-            //    text.text += gibberishChars[Random.Range(0, gibberishChars.Length)].ToString(); // Random gibberish text for visual effect
-
-            if (text != null && options[i].Item2)
-            {
-                text.text = options[i].Item1.playerText;
-                text.text = options[i].Item1.playerText.Replace("/", "<i>");
-                int place = text.text.LastIndexOf("<i>");
-
-                if (place >= 0)
-                    text.text = text.text.Remove(place).Insert(place, "</i>");
-            }
-            int index = options[i].Item3; // Capture index for the listener
-            Debug.Log($"Created choice button {index} with text: {text.text} (enabled: {options[i].Item2})");
-
-            btnObj.interactable = options[i].Item2;
+            int index = i;
+            btnObj.interactable = options[i].revealed;
             btnObj.onClick.RemoveAllListeners();
-            btnObj.onClick.AddListener(() =>
-            {
-                _selectedChoice = index;
-            });
+            btnObj.onClick.AddListener(() => _selectedChoice = index);
         }
 
         choicesContainer.SetActive(true);
-
         yield return new WaitUntil(() => _selectedChoice >= 0);
     }
 
     public void ClearChoices()
     {
         if (choicesContainer == null) return;
-
         for (int i = choicesContainer.transform.childCount - 1; i >= 0; i--)
             Destroy(choicesContainer.transform.GetChild(i).gameObject);
-
         choicesContainer.SetActive(false);
     }
+    #endregion
 
-    /// <summary>
-    /// Skip typewriter and show full text instantly
-    /// </summary>
-    public void SkipTypewriter()
-    {
-        if (typewriterCoroutine != null)
-        {
-            StopCoroutine(typewriterCoroutine);
-            typewriterCoroutine = null;
-        }
-
-        isTyping = false;
-
-        dialogText.text = currentFullText;
-        dialogText.text = currentFullText.Replace("/", "<i>");
-        int place = dialogText.text.LastIndexOf("<i>");
-
-        if (place >= 0)
-            dialogText.text = dialogText.text.Remove(place).Insert(place, "</i>");
-    }
-
-    /// <summary>
-    /// Handle input for advancing dialog
-    /// </summary>
+    #region Input
     private void Update()
     {
-        if (dialogPanel == null || !dialogPanel.activeSelf)
-            return;
-
+        if (dialogPanel == null || !dialogPanel.activeSelf) return;
         if (Input.GetMouseButtonDown(0))
-        {
-            if (isTyping)
-                SkipTypewriter();
-            else if (_awaitingClick)
-                _clickReceived = true;
-        }
+            _typewriter.HandleClick();
     }
+    #endregion
 }

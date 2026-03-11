@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d04fb8ed4ffa24aa1cefb53687ff81, type: 3}
+  m_Name: Prince
+  m_EditorClassIdentifier: Assembly-CSharp::ConversationGraph
+  conversationId: Prince
+  startNodeIds:
+  - b4f7d80d8a3eba0d2f015568d449a8ac
+  - 0f1fa21f47d4d30c3060a9680f4222c2
+  - a2852f3d55d71062d015f9a75da81560
+  - ead6cfca18a77cb90e8a99ffaec1fc06
+  nodes:
+  - nodeId: b4f7d80d8a3eba0d2f015568d449a8ac
+    speaker: {fileID: 11400000, guid: 23f7b1cb417319d4a9e9c19f6c006f0a, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 1
+    npcText: Who am I?
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - 24cbcb1a8de33a9ff410065fe3ab105b
+  - nodeId: 24cbcb1a8de33a9ff410065fe3ab105b
+    speaker: {fileID: 11400000, guid: 23f7b1cb417319d4a9e9c19f6c006f0a, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: 'I am your prince, you wretched hag.  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - cbb9344cb0b5675ba7b40509d9b15a96
+  - nodeId: cbb9344cb0b5675ba7b40509d9b15a96
+    speaker: {fileID: 11400000, guid: 23f7b1cb417319d4a9e9c19f6c006f0a, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: You will address me with respect.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 0f1fa21f47d4d30c3060a9680f4222c2
+    speaker: {fileID: 11400000, guid: 23f7b1cb417319d4a9e9c19f6c006f0a, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 2
+    - type: 6
+      param: Prince
+      intParam: 1
+    npcText: 'Back again, you disgusting old hag?  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - 9970f06a2b229e40f548e45b301e9c26
+  - nodeId: 9970f06a2b229e40f548e45b301e9c26
+    speaker: {fileID: 11400000, guid: 23f7b1cb417319d4a9e9c19f6c006f0a, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: Can you not see that I am busy with my work?
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: a2852f3d55d71062d015f9a75da81560
+    speaker: {fileID: 11400000, guid: 23f7b1cb417319d4a9e9c19f6c006f0a, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 3
+    npcText: Out of my way.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - c3d5caf0903eb55fd6a7a125b9eccb77
+  - nodeId: c3d5caf0903eb55fd6a7a125b9eccb77
+    speaker: {fileID: 11400000, guid: 23f7b1cb417319d4a9e9c19f6c006f0a, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "I must finish with this one quickly\u2014after all, I am to be wed
+      this afternoon."
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: ead6cfca18a77cb90e8a99ffaec1fc06
+    speaker: {fileID: 11400000, guid: 23f7b1cb417319d4a9e9c19f6c006f0a, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 2
+    - type: 7
+      param: Prince
+      intParam: 1
+    npcText: Who am I?
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - 24cbcb1a8de33a9ff410065fe3ab105b

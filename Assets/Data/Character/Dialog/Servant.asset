@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d04fb8ed4ffa24aa1cefb53687ff81, type: 3}
+  m_Name: Servant
+  m_EditorClassIdentifier: Assembly-CSharp::ConversationGraph
+  conversationId: Servant
+  startNodeIds:
+  - 90cc17d5dc34ba728f5952127c903752
+  - ffca9ad31b2aae0460782933091b78a0
+  - 8c370f1ff472f0d4069a507ca923ce85
+  - fcece088cf4610c1cecba3fffa2d345a
+  nodes:
+  - nodeId: 90cc17d5dc34ba728f5952127c903752
+    speaker: {fileID: 11400000, guid: d2a4d237b1af3884aaffadeef5958607, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 1
+    npcText: I come from distant lands to assist Her Majesty in the preparations
+      for the royal wedding.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: ffca9ad31b2aae0460782933091b78a0
+    speaker: {fileID: 11400000, guid: d2a4d237b1af3884aaffadeef5958607, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 2
+    - type: 7
+      param: Servant
+      intParam: 1
+    npcText: I come from distant lands to assist Her Majesty in the preparations
+      for the royal wedding.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 8c370f1ff472f0d4069a507ca923ce85
+    speaker: {fileID: 11400000, guid: d2a4d237b1af3884aaffadeef5958607, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 2
+    - type: 6
+      param: Servant
+      intParam: 1
+    npcText: Oh, hello again!
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - ec180ad34edc84e1b56af7c9e089d2d4
+  - nodeId: ec180ad34edc84e1b56af7c9e089d2d4
+    speaker: {fileID: 11400000, guid: d2a4d237b1af3884aaffadeef5958607, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "I am not from here, but I\u2019ll tell you this: I do not like this
+      place.  "
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - 288b45f86049f9db70c1b47639af8957
+  - nodeId: 288b45f86049f9db70c1b47639af8957
+    speaker: {fileID: 11400000, guid: d2a4d237b1af3884aaffadeef5958607, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: The other girls say the prince is a complete lunatic.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: fcece088cf4610c1cecba3fffa2d345a
+    speaker: {fileID: 11400000, guid: d2a4d237b1af3884aaffadeef5958607, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 3
+    npcText: 'Hi! Well, I must leave now.  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - 433d43df010b96943fe82bd1eac85b05
+  - nodeId: 433d43df010b96943fe82bd1eac85b05
+    speaker: {fileID: 11400000, guid: d2a4d237b1af3884aaffadeef5958607, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: 'The wedding will begin soon, and I would rather not stay here any longer
+      than I must.  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - d94b380e227df4e5ede0300684489d7b
+  - nodeId: d94b380e227df4e5ede0300684489d7b
+    speaker: {fileID: 11400000, guid: d2a4d237b1af3884aaffadeef5958607, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "I\u2019m sorry I cannot tell you more.  "
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - 9c00f0b0c1734ce86c865293853594e8
+  - nodeId: 9c00f0b0c1734ce86c865293853594e8
+    speaker: {fileID: 11400000, guid: d2a4d237b1af3884aaffadeef5958607, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: I hope we will see each other again soon!
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []

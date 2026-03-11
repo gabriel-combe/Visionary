@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class throwableManager : MonoBehaviour
 {
@@ -25,14 +24,11 @@ public class throwableManager : MonoBehaviour
 
     public List<Rigidbody> throwableInstances = new List<Rigidbody>();
 
-    public static event Action<int> ossicleThrowFinished;
-    public static event Action<int> diceThrowFinished;
-
     private AudioManager audioManager;
 
     void Awake()
     {
-        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audioManager = AudioManager.Instance;
     }
 
     IEnumerator WaitForOssiclesSolvedThrow()
@@ -84,7 +80,7 @@ public class throwableManager : MonoBehaviour
                 upDog++;
             }
         }
-        ossicleThrowFinished?.Invoke(upDog);
+        EventBus.Emit(new OssicleResultEvent(upDog));
         Debug.Log(upDog);
     }
 
@@ -93,7 +89,7 @@ public class throwableManager : MonoBehaviour
         GameObject dice = Instantiate(dicePrefab, mainCamera.position + mainCamera.right*singleDiceScreenSpacePosition.x + mainCamera.up*singleDiceScreenSpacePosition.y + mainCamera.forward*singleDiceScreenSpacePosition.z, Quaternion.identity); 
         dice.transform.localScale = new Vector3(singleDiceScale,singleDiceScale,singleDiceScale);
 
-        int randomSide = UnityEngine.Random.Range(1,20);
+        int randomSide = UnityEngine.Random.Range(1,21);
 
         Transform side = dice.transform.GetChild(randomSide-1);
 
@@ -122,7 +118,7 @@ public class throwableManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.25f);
-        diceThrowFinished?.Invoke(randomSide);
+        EventBus.Emit(new DiceResultEvent(randomSide));
         Destroy(dice);
     }
 
@@ -154,6 +150,7 @@ public class throwableManager : MonoBehaviour
     [ContextMenu("Throw Dice")] 
     public void ThrowDice()
     {
+        if (audioManager == null) audioManager = AudioManager.Instance;
         audioManager.SfxSource.PlayOneShot(audioManager.SfxDice, 1.5f);
         StartCoroutine(DiceAnim());
     }

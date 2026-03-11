@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bc3ee4bddd229e4c8fb0835c089fc9d, type: 3}
+  m_Name: HandOfTheKing
+  m_EditorClassIdentifier: Assembly-CSharp::Speaker
+  _npcId: Hand Of The King
+  _portrait: {fileID: 21300000, guid: 64df75f9b20adac419b362721663a1ec, type: 3}
+  _voiceClip: {fileID: 8300000, guid: 6f1e6757e43178c33ac6e554d2202709, type: 3}

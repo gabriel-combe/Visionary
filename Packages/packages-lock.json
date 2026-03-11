@@ -169,6 +169,14 @@
         "com.unity.2d.tooling": "1.0.2"
       }
     },
+    "com.unity.graphtoolkit": {
+      "version": "file:com.unity.graphtoolkit",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.modules.uielements": "1.0.0"
+      }
+    },
     "com.unity.ide.rider": {
       "version": "3.0.39",
       "depth": 0,

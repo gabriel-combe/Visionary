@@ -1,0 +1,209 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d04fb8ed4ffa24aa1cefb53687ff81, type: 3}
+  m_Name: Guard
+  m_EditorClassIdentifier: Assembly-CSharp::ConversationGraph
+  conversationId: Guard
+  startNodeIds:
+  - e6332ed1c962caadf05634d396fcbc55
+  - 894d5a6fecc995daa6dd8a075cb66ea9
+  - 3de4dc89729f0f3a84e1bbe987267b2d
+  - c387d200e9549b10482af4d61b67fcf9
+  - 939c006d28ccdd35fca7c2b10ec8f0f6
+  nodes:
+  - nodeId: e6332ed1c962caadf05634d396fcbc55
+    speaker: {fileID: 11400000, guid: 8b0c0381ab49f914b8e0376f7935047f, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 5
+      param: Guard
+      intParam: 0
+      card: {fileID: 0}
+    - type: 11
+      param: 
+      intParam: 0
+      card: {fileID: 11400000, guid: bf803579fc5ca4541b4ec4a77d5f142d, type: 2}
+    npcText: It's a hard life for the head of the Royal Guard.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - f4bfd4cf75f276e11c2567f83f4a07f2
+  - nodeId: f4bfd4cf75f276e11c2567f83f4a07f2
+    speaker: {fileID: 11400000, guid: 8b0c0381ab49f914b8e0376f7935047f, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: My life stands beneath those of royal blood, whom I shall protect until
+      my last breath.
+    choices:
+    - playerText: "I won\u2019t bother you."
+      nextNodeIds:
+      - f86185c549aadc86bdaef281df85a06c
+      outcomes: []
+    - playerText: Could you tell me more about yourself?
+      nextNodeIds:
+      - 15d19897f25b3d061bcd7b0f20e9c26a
+      outcomes: []
+    - playerText: "You seem troubled\u2026"
+      nextNodeIds:
+      - e6a9107ed03fb8e28ac3a9b2de9b2628
+      outcomes: []
+    - playerText: "You seem troubled. You care for someone, don\u2019t you?"
+      nextNodeIds:
+      - c94b4481f5584905b0f70402e2e3afbb
+      outcomes: []
+    - playerText: Who do you truly love, and where can I find her?
+      nextNodeIds:
+      - bf4247185231d2b2a03d579af4995b9f
+      outcomes: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: f86185c549aadc86bdaef281df85a06c
+    speaker: {fileID: 11400000, guid: 8b0c0381ab49f914b8e0376f7935047f, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: Mind your own business. I have my duty.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 15d19897f25b3d061bcd7b0f20e9c26a
+    speaker: {fileID: 11400000, guid: 8b0c0381ab49f914b8e0376f7935047f, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: There is nothing to tell. I only serve the kingdom.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: e6a9107ed03fb8e28ac3a9b2de9b2628
+    speaker: {fileID: 11400000, guid: 8b0c0381ab49f914b8e0376f7935047f, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "\u2026It is my duty to protect the princess. Nothing else matters."
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: c94b4481f5584905b0f70402e2e3afbb
+    speaker: {fileID: 11400000, guid: 8b0c0381ab49f914b8e0376f7935047f, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "\u2026Yes. I care for the Princess, but I am sworn to protect her above
+      all. I cannot let feelings interfere with duty."
+    choices: []
+    onEnterOutcomes:
+    - type: 0
+      param: 
+      card: {fileID: 11400000, guid: bf803579fc5ca4541b4ec4a77d5f142d, type: 2}
+    nextNodeIds: []
+  - nodeId: bf4247185231d2b2a03d579af4995b9f
+    speaker: {fileID: 11400000, guid: 8b0c0381ab49f914b8e0376f7935047f, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: '... Your gifts of foresight were not meerly legends then. I must confess,
+      I cannot bear it anymore. I am in love with the princes but she and i can never
+      be together, she is to be wedded tomorrw '
+    choices: []
+    onEnterOutcomes:
+    - type: 0
+      param: 
+      card: {fileID: 11400000, guid: bf803579fc5ca4541b4ec4a77d5f142d, type: 2}
+    nextNodeIds: []
+  - nodeId: 894d5a6fecc995daa6dd8a075cb66ea9
+    speaker: {fileID: 11400000, guid: 8b0c0381ab49f914b8e0376f7935047f, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 1
+      card: {fileID: 0}
+    - type: 6
+      param: Guard
+      intParam: 1
+      card: {fileID: 0}
+    npcText: 'I am the Head of the Royal Guard.  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - a131a0664464abafedc3413b247e22f6
+  - nodeId: a131a0664464abafedc3413b247e22f6
+    speaker: {fileID: 11400000, guid: 8b0c0381ab49f914b8e0376f7935047f, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: My life stands beneath those of royal blood, whom I shall protect until
+      my last breath.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 3de4dc89729f0f3a84e1bbe987267b2d
+    speaker: {fileID: 11400000, guid: 8b0c0381ab49f914b8e0376f7935047f, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 2
+      card: {fileID: 0}
+    - type: 11
+      param: 
+      intParam: 0
+      card: {fileID: 11400000, guid: bf803579fc5ca4541b4ec4a77d5f142d, type: 2}
+    npcText: My duty is to protect the realm, not to indulge in gossip.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: c387d200e9549b10482af4d61b67fcf9
+    speaker: {fileID: 11400000, guid: 8b0c0381ab49f914b8e0376f7935047f, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 3
+      card: {fileID: 0}
+    - type: 11
+      param: 
+      intParam: 0
+      card: {fileID: 11400000, guid: 8b301792c45db4b4188faf59cbeed51b, type: 2}
+    npcText: '...The princess is to be married today.  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - 947e1c9b8dc43a60b371bc2b8023d135
+  - nodeId: 939c006d28ccdd35fca7c2b10ec8f0f6
+    speaker: {fileID: 11400000, guid: 8b0c0381ab49f914b8e0376f7935047f, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 2
+      card: {fileID: 0}
+    - type: 10
+      param: 
+      intParam: 0
+      card: {fileID: 11400000, guid: 8b301792c45db4b4188faf59cbeed51b, type: 2}
+    npcText: 'We must flee before the afternoon.  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - 467c8f22c2e2ead96988009b29f24f0c
+  - nodeId: 947e1c9b8dc43a60b371bc2b8023d135
+    speaker: {fileID: 11400000, guid: 8b0c0381ab49f914b8e0376f7935047f, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: I have much work to attend to.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 467c8f22c2e2ead96988009b29f24f0c
+    speaker: {fileID: 11400000, guid: 8b0c0381ab49f914b8e0376f7935047f, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: There is no turning back now.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []

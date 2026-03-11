@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d04fb8ed4ffa24aa1cefb53687ff81, type: 3}
+  m_Name: Prisonner
+  m_EditorClassIdentifier: Assembly-CSharp::ConversationGraph
+  conversationId: Prisonner
+  startNodeIds:
+  - ccd9c49956f503dea7d63f1fbc7ea70f
+  - d858d2366a9e1ef672bf002968ce7ed1
+  - 3d699fdca83b27161c81688d5d81a9b9
+  nodes:
+  - nodeId: ccd9c49956f503dea7d63f1fbc7ea70f
+    speaker: {fileID: 11400000, guid: 5a53d9bf94f991741a40c55b6a09182d, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 1
+      card: {fileID: 0}
+    npcText: Please ... Make it stop ... I only want it to end. I want it all to
+      end ...
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: d858d2366a9e1ef672bf002968ce7ed1
+    speaker: {fileID: 11400000, guid: 5a53d9bf94f991741a40c55b6a09182d, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 2
+      card: {fileID: 0}
+    npcText: Please ... I can't take it anymore ... I beg you ...
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 3d699fdca83b27161c81688d5d81a9b9
+    speaker: {fileID: 11400000, guid: 5a53d9bf94f991741a40c55b6a09182d, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 3
+      card: {fileID: 0}
+    npcText: <i>His body stands motionless on the cold dungeon's ground.</i>
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []

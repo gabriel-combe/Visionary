@@ -1,0 +1,267 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d04fb8ed4ffa24aa1cefb53687ff81, type: 3}
+  m_Name: HandOfTheKing
+  m_EditorClassIdentifier: Assembly-CSharp::ConversationGraph
+  conversationId: HandOfTheKing
+  startNodeIds:
+  - e159d7d63bad056a83506f6b171e3c2a
+  - 1989ae093dadd927af609ca3cd66fdea
+  - f5fffa5ea50485dd3879cf458bfbb7ed
+  - 72e33e06af3a8ecdfe24f7c86e4d1a77
+  - 29b898298c714a808086181133e89db3
+  - c31548f1ef24b8bdea9362b6d6254f3a
+  nodes:
+  - nodeId: e159d7d63bad056a83506f6b171e3c2a
+    speaker: {fileID: 11400000, guid: 1dce875a4b869a3459587f1697b290f9, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 1
+    - type: 7
+      param: HandOfTheKing
+      intParam: 1
+    npcText: "Do you have something to say today, a vision perheaps? Hurry up\u2014I
+      have much work to do as the Hand of the King."
+    choices:
+    - playerText: 'The realm is compromised. '
+      nextNodeIds:
+      - 30b5436845fc1797d2e3f31b7b7652d3
+      outcomes:
+      - type: 0
+        param: 
+        card: {fileID: 11400000, guid: 0eb21e65d89787f4aa02a73deaa145cf, type: 2}
+    - playerText: I see dark omens on the horizon.
+      nextNodeIds:
+      - 39571f61f06e03d19dc6088cd37b4912
+      outcomes: []
+    - playerText: Nothing today
+      nextNodeIds:
+      - abdd31426f16e6f93cb793030a036228
+      outcomes: []
+    - playerText: 'I don''t see you doing much. '
+      nextNodeIds:
+      - ae5f24ee29ab66f3ff71d04ec9f57e50
+      outcomes: []
+    - playerText: <i>you refuse to answer</i>
+      nextNodeIds:
+      - 7f9b84668af2530bc8903e3f36ca9298
+      outcomes: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 30b5436845fc1797d2e3f31b7b7652d3
+    speaker: {fileID: 11400000, guid: 1dce875a4b869a3459587f1697b290f9, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: I knew it. The king shall be informed.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 39571f61f06e03d19dc6088cd37b4912
+    speaker: {fileID: 11400000, guid: 1dce875a4b869a3459587f1697b290f9, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: That is too vague. The King demands answers.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: abdd31426f16e6f93cb793030a036228
+    speaker: {fileID: 11400000, guid: 1dce875a4b869a3459587f1697b290f9, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: 'Of what use are you? '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: ae5f24ee29ab66f3ff71d04ec9f57e50
+    speaker: {fileID: 11400000, guid: 1dce875a4b869a3459587f1697b290f9, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: 'Carreful there, remember who you are speaking to. '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 7f9b84668af2530bc8903e3f36ca9298
+    speaker: {fileID: 11400000, guid: 1dce875a4b869a3459587f1697b290f9, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: <i>looks like this conversation is over</i>
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 1989ae093dadd927af609ca3cd66fdea
+    speaker: {fileID: 11400000, guid: 1dce875a4b869a3459587f1697b290f9, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 2
+    - type: 6
+      param: HandOfTheKing
+      intParam: 1
+    - type: 7
+      param: HandOfTheKing
+      intParam: 2
+    npcText: The wedding is tommorrow, I dont have any time to play around with your
+      vision nonsense. Hurry up.
+    choices:
+    - playerText: The wedding is threatened by a force closer than you realize
+      nextNodeIds:
+      - f444aece207261d4ab25d234997d1de6
+      outcomes: []
+    - playerText: There are people plotting against the King.
+      nextNodeIds:
+      - 3de0ac4b1dddcc6637ef4b15f74fc201
+      outcomes: []
+    - playerText: "I can give you some guidance\u2026 perhaps a prediction."
+      nextNodeIds:
+      - c0e227a5f23306041a0c19902fc92e19
+      outcomes: []
+    - playerText: I don't have anything for you.
+      nextNodeIds:
+      - a3b4cd52b5a433d04c5ac8c7473ec6ca
+      outcomes: []
+    - playerText: "Your majesty\u2026 or should I say, oh mighty Hand, perhaps you
+        could open your eyes for once?"
+      nextNodeIds:
+      - 316beb8e6cb5fd3066baaa90ebd74d0c
+      outcomes: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: f444aece207261d4ab25d234997d1de6
+    speaker: {fileID: 11400000, guid: 1dce875a4b869a3459587f1697b290f9, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: I will inform the King. You may not be entirely useless after all.
+    choices: []
+    onEnterOutcomes:
+    - type: 0
+      param: 
+      card: {fileID: 11400000, guid: 0502ebab851a28a41b63689b556b07da, type: 2}
+    nextNodeIds: []
+  - nodeId: 3de0ac4b1dddcc6637ef4b15f74fc201
+    speaker: {fileID: 11400000, guid: 1dce875a4b869a3459587f1697b290f9, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "Find their names ans you shall be recompens\xE9e. "
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: c0e227a5f23306041a0c19902fc92e19
+    speaker: {fileID: 11400000, guid: 1dce875a4b869a3459587f1697b290f9, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: Hmph. Very well. Speak quickly, but do not waste my time.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: a3b4cd52b5a433d04c5ac8c7473ec6ca
+    speaker: {fileID: 11400000, guid: 1dce875a4b869a3459587f1697b290f9, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: <i>looks like this conversation is over</i>
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 316beb8e6cb5fd3066baaa90ebd74d0c
+    speaker: {fileID: 11400000, guid: 1dce875a4b869a3459587f1697b290f9, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "\u2026Watch your tone. I may tolerate your insight, but do not press
+      your luck."
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: f5fffa5ea50485dd3879cf458bfbb7ed
+    speaker: {fileID: 11400000, guid: 1dce875a4b869a3459587f1697b290f9, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 1
+    - type: 6
+      param: HandOfTheKing
+      intParam: 1
+    npcText: I am the Hand, commanded by the King to serve the realm.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 72e33e06af3a8ecdfe24f7c86e4d1a77
+    speaker: {fileID: 11400000, guid: 1dce875a4b869a3459587f1697b290f9, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 2
+    - type: 6
+      param: HandOfTheKing
+      intParam: 2
+    npcText: Do not disturb me in my work.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 29b898298c714a808086181133e89db3
+    speaker: {fileID: 11400000, guid: 1dce875a4b869a3459587f1697b290f9, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 2
+    - type: 7
+      param: HandOfTheKing
+      intParam: 1
+    - type: 7
+      param: HandOfTheKing
+      intParam: 2
+    npcText: "Do you have something to say today, a vision perheaps? Hurry up\u2014I
+      have much work to do as the Hand of the King."
+    choices:
+    - playerText: 'The realm is compromised. '
+      nextNodeIds:
+      - 30b5436845fc1797d2e3f31b7b7652d3
+      outcomes:
+      - type: 0
+        param: 
+        card: {fileID: 11400000, guid: 0502ebab851a28a41b63689b556b07da, type: 2}
+    - playerText: I see dark omens on the horizon.
+      nextNodeIds:
+      - 39571f61f06e03d19dc6088cd37b4912
+      outcomes: []
+    - playerText: Nothing today
+      nextNodeIds:
+      - abdd31426f16e6f93cb793030a036228
+      outcomes: []
+    - playerText: 'I don''t see you doing much. '
+      nextNodeIds:
+      - ae5f24ee29ab66f3ff71d04ec9f57e50
+      outcomes: []
+    - playerText: <i>you refuse to answer</i>
+      nextNodeIds:
+      - 7f9b84668af2530bc8903e3f36ca9298
+      outcomes: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: c31548f1ef24b8bdea9362b6d6254f3a
+    speaker: {fileID: 11400000, guid: 1dce875a4b869a3459587f1697b290f9, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 3
+    npcText: "I have no time for you\u2014the wedding is today"
+    choices: []
+    onEnterOutcomes:
+    - type: 1
+      param: EndingShown
+      card: {fileID: 0}
+    nextNodeIds: []

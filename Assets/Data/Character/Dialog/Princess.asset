@@ -1,0 +1,268 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d04fb8ed4ffa24aa1cefb53687ff81, type: 3}
+  m_Name: Princess
+  m_EditorClassIdentifier: Assembly-CSharp::ConversationGraph
+  conversationId: Princess
+  startNodeIds:
+  - 6abbfcf32c175ab224f5293910b96155
+  - 1ce2be63d751d8c8af1ca0f8260b785d
+  - ae190d59dc23f42ddd5794bc12840f9c
+  - 9f4c252347d6efd1fad841cd0e23eed4
+  - f3b7af1c217c424bb917e3f20ce0d89f
+  nodes:
+  - nodeId: ebd3410388ef52879774bba3022e6ffe
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: Destiny has chosen this path for me, and my duty leaves me no choice
+      but to obey.
+    choices:
+    - playerText: I'll leave
+      nextNodeIds:
+      - 9b4ae446448991551491efa513efb30d
+      outcomes: []
+    - playerText: Could you tell me more ?
+      nextNodeIds:
+      - 07039716c174490f4b830a71425caeb9
+      outcomes: []
+    - playerText: 'You look unhappy. '
+      nextNodeIds:
+      - 4013d0ce938f8419d67fab2b9512b5da
+      outcomes: []
+    - playerText: You look unhappy, Princess. I have the gift of foresight and could
+        help you if you let me.
+      nextNodeIds:
+      - b36bafe55046c43d3ed063051cdd122f
+      outcomes: []
+    - playerText: "Perhaps fate is not as fixed as it seems\u2026 you may yet follow
+        your heart, if you are brave enough."
+      nextNodeIds:
+      - a77dba399c3df2ba0a667adcdba93ebe
+      outcomes: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 1ce2be63d751d8c8af1ca0f8260b785d
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 1
+      card: {fileID: 0}
+    - type: 6
+      param: Princess
+      intParam: 1
+      card: {fileID: 0}
+    npcText: 'Who am I?  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - 7d7659c65b7ca930529b19e9a3f40e88
+  - nodeId: ae190d59dc23f42ddd5794bc12840f9c
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 2
+      card: {fileID: 0}
+    - type: 11
+      param: 
+      intParam: 0
+      card: {fileID: 11400000, guid: 55e06da48b9ed474ba8ddcab4a096d71, type: 2}
+    npcText: 'I could not sleep tonight. The screams from the dungeon were too loud.  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - 8ebe9c9a11ce5e46824031535beddf14
+  - nodeId: 7d7659c65b7ca930529b19e9a3f40e88
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: 'I am the princess, soon to become the queen of this realm.  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - da9f1b983e5af5c0095b215afa396d67
+  - nodeId: 6abbfcf32c175ab224f5293910b96155
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 5
+      param: Princess
+      intParam: 0
+      card: {fileID: 0}
+    - type: 11
+      param: 
+      intParam: 0
+      card: {fileID: 11400000, guid: 55e06da48b9ed474ba8ddcab4a096d71, type: 2}
+    npcText: 'I never chose to be a princess, and now I am soon to be the queen of
+      this realm. '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - ebd3410388ef52879774bba3022e6ffe
+  - nodeId: 9f4c252347d6efd1fad841cd0e23eed4
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 3
+      card: {fileID: 0}
+    - type: 11
+      param: 
+      intParam: 0
+      card: {fileID: 11400000, guid: 8b301792c45db4b4188faf59cbeed51b, type: 2}
+    npcText: 'The wedding bells are ringing.  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - c28a2ea70752f4aea5b8c714ded93375
+  - nodeId: f3b7af1c217c424bb917e3f20ce0d89f
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 2
+      card: {fileID: 0}
+    - type: 10
+      param: 
+      intParam: 0
+      card: {fileID: 11400000, guid: 8b301792c45db4b4188faf59cbeed51b, type: 2}
+    npcText: 'I must go now.  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - 1cf2052cfb3792b2ad0a18e8ee0a824f
+  - nodeId: a77dba399c3df2ba0a667adcdba93ebe
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "\u2026Do you really think that could be true?  "
+    choices: []
+    onEnterOutcomes:
+    - type: 0
+      param: 
+      card: {fileID: 11400000, guid: 55e06da48b9ed474ba8ddcab4a096d71, type: 2}
+    nextNodeIds:
+    - baa0f7ac58f7ea38b8125d2ee639d13d
+  - nodeId: 9b4ae446448991551491efa513efb30d
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: <i>Looks like this conversation is over</i>
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: c28a2ea70752f4aea5b8c714ded93375
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: I must prepare myself, for this day will set me upon the path of my
+      destiny.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 1cf2052cfb3792b2ad0a18e8ee0a824f
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: 'I must find my love.  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - 1acfa164e989624e6925b02dd428389b
+  - nodeId: e6a13e1697bfb83168221ea0aaf28081
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "You can find him in the garden, <i>beneath the balcony</i>\u2026 please,
+      go to him."
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: baa0f7ac58f7ea38b8125d2ee639d13d
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "Oh, how I detest this place! I must leave with him\u2014my heart belongs
+      to no one else. "
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - e6a13e1697bfb83168221ea0aaf28081
+  - nodeId: b36bafe55046c43d3ed063051cdd122f
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: 'How could you help me ? I am bound by my duty to marry the prince and
+      never shall I see my true love again. '
+    choices: []
+    onEnterOutcomes:
+    - type: 0
+      param: 
+      card: {fileID: 11400000, guid: 55e06da48b9ed474ba8ddcab4a096d71, type: 2}
+    nextNodeIds: []
+  - nodeId: 4013d0ce938f8419d67fab2b9512b5da
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "You see through me\u2026 I am deeply unhappy. But my duty forbids me
+      from telling you why."
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 07039716c174490f4b830a71425caeb9
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "What is there to say, and why should I say it to you? Please\u2026
+      leave me be."
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: da9f1b983e5af5c0095b215afa396d67
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: It is the destiny chosen for me, and my duty commands that I obey.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 8ebe9c9a11ce5e46824031535beddf14
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "The prince\u2026 he\u2026  "
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - ae5b4ba55dfaa69cf069ac61d84a27f6
+  - nodeId: ae5b4ba55dfaa69cf069ac61d84a27f6
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: <color=#d3a957ff><i>sighs</i></color>
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 1acfa164e989624e6925b02dd428389b
+    speaker: {fileID: 11400000, guid: 13ea37e61d72e0b438107794be748373, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "Thank you\u2026 for everything."
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []

@@ -259,7 +259,7 @@ MonoBehaviour:
   ossiclePrefab: {fileID: 7395344100750688431, guid: b075d95eb1da2e48ab44517fac043283, type: 3}
   dicePrefab: {fileID: 7184959685950017438, guid: b6636b68214c4db48916d6764a34275c, type: 3}
   mainCamera: {fileID: 0}
-  singleDiceScreenSpacePosition: {x: 0.22, y: 0.05, z: 0.5}
+  singleDiceScreenSpacePosition: {x: 0.2, y: 0.05, z: 0.5}
   singleDiceScale: 0.1
   height: 1
   numberOfOssiclesToThrow: 3
@@ -268,8 +268,8 @@ MonoBehaviour:
   randomAngularMomentumMagnitude: 25
   epsilon: 0.01
   timeout_period: 10
-  lowBound: {x: -2, y: 0.01, z: -2}
-  highBound: {x: 2, y: 3, z: 2}
+  lowBound: {x: -1.5, y: 0.01, z: -1.5}
+  highBound: {x: 1.5, y: 3, z: 1.5}
   throwableInstances: []
 --- !u!82 &801714613026716584
 AudioSource:
@@ -770,7 +770,7 @@ GameObject:
   - component: {fileID: 6410717309147347377}
   m_Layer: 0
   m_Name: Table_MTR
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

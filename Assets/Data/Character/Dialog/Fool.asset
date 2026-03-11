@@ -1,0 +1,358 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d04fb8ed4ffa24aa1cefb53687ff81, type: 3}
+  m_Name: Fool
+  m_EditorClassIdentifier: Assembly-CSharp::ConversationGraph
+  conversationId: Fool
+  startNodeIds:
+  - 60b4c57ec11bdf193a118f9b6d6f79eb
+  - e545706b0683547112ff4d63f06a8933
+  - dec147302c12b971abd82947eba47e6c
+  - 5ecc2bcbcfd1067056d30d5e8cd2c97e
+  - 44687c92f91b3f13e66083113379d7f4
+  - 99b8d2cefe60afcb35a18dcc46972b3c
+  - e1031f3fcaf6272a5a2b30c2f3149b4d
+  nodes:
+  - nodeId: 6c0137bcfabc5bef1bb836cb00f52120
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: Soon the streets will rise, but timing is everything. One wrong move,
+      and it will fail.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 60b4c57ec11bdf193a118f9b6d6f79eb
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 1
+      card: {fileID: 0}
+    - type: 6
+      param: Fool
+      intParam: 1
+      card: {fileID: 0}
+    npcText: 'I am the Fool, employed by our gracious king to amuse and distract
+      the court. '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - a7ecaf955fd190c83d7f781a01f6feec
+  - nodeId: 9ef1fc4cdc778976e25200bea4b7dfaf
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: 'What are you ? A spy ? '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 44687c92f91b3f13e66083113379d7f4
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 1
+      card: {fileID: 0}
+    - type: 7
+      param: Fool
+      intParam: 1
+      card: {fileID: 0}
+    npcText: "I am the Fool, employed by our gracious king to amuse and distract
+      the court.  $I am the jester, the clown\u2014made for laughter and obedience."
+    choices:
+    - playerText: What are you scheming?
+      nextNodeIds:
+      - 80e496b62fee64c39dd8ed913bd22a09
+      outcomes: []
+    - playerText: 'You look like you have plans '
+      nextNodeIds:
+      - 9ef1fc4cdc778976e25200bea4b7dfaf
+      outcomes: []
+    - playerText: "You seem angry\u2026 plotting something?"
+      nextNodeIds:
+      - e8be682d09f1960b1af5ca03d3bf2276
+      outcomes: []
+    - playerText: "The people suffer\u2026 are you plotting to help them?"
+      nextNodeIds:
+      - 6c0137bcfabc5bef1bb836cb00f52120
+      outcomes:
+      - type: 0
+        param: 
+        card: {fileID: 11400000, guid: fc214faf4ac6b0a4b97e870477a16e3b, type: 2}
+    - playerText: "Tell me everything\u2014I want to help the people and see justice
+        done."
+      nextNodeIds:
+      - e550c589265a03f8599fb56ae1b4e454
+      outcomes:
+      - type: 0
+        param: 
+        card: {fileID: 11400000, guid: fc214faf4ac6b0a4b97e870477a16e3b, type: 2}
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: e550c589265a03f8599fb56ae1b4e454
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: I will light the spark of revolution. The people will rise against the
+      court, but only if we strike at the right moment.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: e8be682d09f1960b1af5ca03d3bf2276
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: I stir whispers in the streets, but that is all you need to know.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: dec147302c12b971abd82947eba47e6c
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 2
+      card: {fileID: 0}
+    - type: 6
+      param: Fool
+      intParam: 2
+      card: {fileID: 0}
+    npcText: 'The court will soon be dancing, and I shall be there to entertain them.  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - b8f164535d74606fb06829cfc898e376
+  - nodeId: 5ecc2bcbcfd1067056d30d5e8cd2c97e
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 3
+      card: {fileID: 0}
+    - type: 8
+      param: FoolBadEnding
+      intParam: 0
+      card: {fileID: 0}
+    npcText: 'How many merry people are here today.  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - 569a2fef27062312d2337df2150cb20b
+  - nodeId: e545706b0683547112ff4d63f06a8933
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 2
+      card: {fileID: 0}
+    - type: 6
+      param: Fool
+      intParam: 1
+      card: {fileID: 0}
+    - type: 7
+      param: Fool
+      intParam: 2
+      card: {fileID: 0}
+    npcText: Hello again my friend. Things seem to be moving along quite nicely.
+    choices:
+    - playerText: What are you plotting now?
+      nextNodeIds:
+      - ea41ac12639a5e97b1c689385b754bc3
+      outcomes: []
+    - playerText: Can you give me a hint of your plan?
+      nextNodeIds:
+      - c78badb370e7ea9bd9bfc6d04ef76190
+      outcomes: []
+    - playerText: "The kingdom suffers\u2026 are you ready to act?"
+      nextNodeIds:
+      - a8a99cf4fa040d342704c4ab4be02403
+      outcomes: []
+    - playerText: "I want to understand your vision\u2014I can help, if you trust
+        me"
+      nextNodeIds:
+      - b5557592b6e62f447ceda2e4e8f6ce89
+      outcomes: []
+    - playerText: Tell me everything. How will the people rise?
+      nextNodeIds:
+      - 351f0b3190d436c85cc2e4ec49201488
+      outcomes: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: a8a99cf4fa040d342704c4ab4be02403
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: Soon. Patience is part of the game. Act too early and it all crumbles.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: c78badb370e7ea9bd9bfc6d04ef76190
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "\u2026A hint? No. Some things must stay hidden, for the people are
+      not yet ready."
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 80e496b62fee64c39dd8ed913bd22a09
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: Nothing much. <i>Looks like this conversation is over</i>
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: ea41ac12639a5e97b1c689385b754bc3
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: Hah! Still nothing for you to meddle with. Step back.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: b5557592b6e62f447ceda2e4e8f6ce89
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "\u2026You may see the shape of it, but the streets themselves must
+      decide the moment. Timing is everything."
+    choices: []
+    onEnterOutcomes:
+    - type: 0
+      param: 
+      card: {fileID: 11400000, guid: 42dd8cb590775ae4b9fdfbdb2d9f3f7c, type: 2}
+    nextNodeIds: []
+  - nodeId: 351f0b3190d436c85cc2e4ec49201488
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "I will ignite the flames of rebellion. The kingdom\u2019s rot cannot
+      last, and the people will follow if we strike at the perfect moment."
+    choices: []
+    onEnterOutcomes:
+    - type: 0
+      param: 
+      card: {fileID: 11400000, guid: 42dd8cb590775ae4b9fdfbdb2d9f3f7c, type: 2}
+    nextNodeIds: []
+  - nodeId: 99b8d2cefe60afcb35a18dcc46972b3c
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 2
+      card: {fileID: 0}
+    - type: 7
+      param: Fool
+      intParam: 1
+      card: {fileID: 0}
+    - type: 7
+      param: Fool
+      intParam: 2
+      card: {fileID: 0}
+    npcText: "I am the Fool, employed by our gracious king to amuse and distract
+      the court.  $I am the jester, the clown\u2014made for laughter and obedience."
+    choices:
+    - playerText: What are you scheming?
+      nextNodeIds:
+      - 80e496b62fee64c39dd8ed913bd22a09
+      outcomes: []
+    - playerText: 'You look like you have plans '
+      nextNodeIds:
+      - 9ef1fc4cdc778976e25200bea4b7dfaf
+      outcomes: []
+    - playerText: "You seem angry\u2026 plotting something?"
+      nextNodeIds:
+      - e8be682d09f1960b1af5ca03d3bf2276
+      outcomes: []
+    - playerText: "The people suffer\u2026 are you plotting to help them?"
+      nextNodeIds:
+      - 6c0137bcfabc5bef1bb836cb00f52120
+      outcomes:
+      - type: 0
+        param: 
+        card: {fileID: 11400000, guid: 42dd8cb590775ae4b9fdfbdb2d9f3f7c, type: 2}
+    - playerText: "Tell me everything\u2014I want to help the people and see justice
+        done."
+      nextNodeIds:
+      - e550c589265a03f8599fb56ae1b4e454
+      outcomes:
+      - type: 0
+        param: 
+        card: {fileID: 11400000, guid: 42dd8cb590775ae4b9fdfbdb2d9f3f7c, type: 2}
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: a7ecaf955fd190c83d7f781a01f6feec
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "I am the jester, the clown\u2014made for laughter and obedience."
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: b8f164535d74606fb06829cfc898e376
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: Such is my cross to bear.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: e1031f3fcaf6272a5a2b30c2f3149b4d
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 3
+      card: {fileID: 0}
+    - type: 8
+      param: FoolGoodEnding
+      intParam: 0
+      card: {fileID: 0}
+    npcText: 'Everything is ready.  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - cf0a288a9b18a46e218a97a4620f9187
+  - nodeId: 569a2fef27062312d2337df2150cb20b
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: "Laughing, dancing\u2026 and I shall be working until dawn."
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: cf0a288a9b18a46e218a97a4620f9187
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: 'Soon it will all begin.  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - 02b8e57bca9af10fd3f7d0a6ef3633c0
+  - nodeId: 02b8e57bca9af10fd3f7d0a6ef3633c0
+    speaker: {fileID: 11400000, guid: f57a6cbc603399d4db1b2afbb697e7e3, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: The revolution shall be glorious, and at last we will be free.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []

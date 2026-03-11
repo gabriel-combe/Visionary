@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d04fb8ed4ffa24aa1cefb53687ff81, type: 3}
+  m_Name: Executionner
+  m_EditorClassIdentifier: Assembly-CSharp::ConversationGraph
+  conversationId: Executionner
+  startNodeIds:
+  - e3a4d927e604973bb11cbb9e339a8415
+  - bb392344a9012adb35266b42cab2b430
+  - 7a64779d559ff5f56596deaa09d09e79
+  - 64cd8e2d6a7e4fce5cd40aa0d573dcc2
+  nodes:
+  - nodeId: e3a4d927e604973bb11cbb9e339a8415
+    speaker: {fileID: 11400000, guid: 7858a760457c4204cb21fcf98cead20f, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 1
+    npcText: 'I am the executioner. '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - db2e52cb72480982e20c2f6d32f64950
+  - nodeId: db2e52cb72480982e20c2f6d32f64950
+    speaker: {fileID: 11400000, guid: 7858a760457c4204cb21fcf98cead20f, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: I accompany the prince in his daily affairs.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - 0913c792c9e7886de4d49cb84871a2cf
+  - nodeId: 0913c792c9e7886de4d49cb84871a2cf
+    speaker: {fileID: 11400000, guid: 7858a760457c4204cb21fcf98cead20f, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: Killing is an art, you know.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: bb392344a9012adb35266b42cab2b430
+    speaker: {fileID: 11400000, guid: 7858a760457c4204cb21fcf98cead20f, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 2
+    - type: 6
+      param: Executionner
+      intParam: 1
+    npcText: 'We have many prisoners to torture today. '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - cd6c36f6ec3d2c0c2c43128751a796b9
+  - nodeId: cd6c36f6ec3d2c0c2c43128751a796b9
+    speaker: {fileID: 11400000, guid: 7858a760457c4204cb21fcf98cead20f, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: I cannot speak with you right now.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 7a64779d559ff5f56596deaa09d09e79
+    speaker: {fileID: 11400000, guid: 7858a760457c4204cb21fcf98cead20f, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 3
+    npcText: 'The prince is here, even on his wedding day.  '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - 94c15a6d4de739903e945530b4471b8d
+  - nodeId: 94c15a6d4de739903e945530b4471b8d
+    speaker: {fileID: 11400000, guid: 7858a760457c4204cb21fcf98cead20f, type: 2}
+    speakerSide: 0
+    conditions: []
+    npcText: He loves this work even more than I do.
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds: []
+  - nodeId: 64cd8e2d6a7e4fce5cd40aa0d573dcc2
+    speaker: {fileID: 11400000, guid: 7858a760457c4204cb21fcf98cead20f, type: 2}
+    speakerSide: 0
+    conditions:
+    - type: 0
+      param: 
+      intParam: 2
+    - type: 7
+      param: Executionner
+      intParam: 1
+    npcText: 'I am the executioner. '
+    choices: []
+    onEnterOutcomes: []
+    nextNodeIds:
+    - db2e52cb72480982e20c2f6d32f64950
